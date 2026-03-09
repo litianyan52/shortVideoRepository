@@ -18,7 +18,7 @@
         tools:context=".ui.imagesShow.ImagesShowActivity">
 
         <ImageView
-            android:onClick="@{()->viewModel.finishPage()}"
+            android:onClick="@{()->viewModel.FinishImageActivity()}"
             android:id="@+id/back"
             android:layout_width="20dp"
             android:layout_height="20dp"

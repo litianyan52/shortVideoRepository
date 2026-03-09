@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -46,6 +47,18 @@ public class ImagesShowActivity extends BaseActivity<ImagesShowViewModel, Activi
     @Override
     public void initView() {
         initViewPager();
+        /**
+         * 指定当前Activity退出动画
+         */
+        mViewModel.getIsFinishCurrentImageActivity().observe(ImagesShowActivity.this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isFinish) {
+                if(isFinish){
+                    finish();
+                    overridePendingTransition(0,R.anim.picture_activity_out);
+                }
+            }
+        });
     }
 
     /**
@@ -83,6 +96,7 @@ public class ImagesShowActivity extends BaseActivity<ImagesShowViewModel, Activi
                 mdataBinding.imageIndex.setText(position + 1 + "/" + mResPiazzaDetail.getImages().size());
             }
         });
+
     }
 
     @Override

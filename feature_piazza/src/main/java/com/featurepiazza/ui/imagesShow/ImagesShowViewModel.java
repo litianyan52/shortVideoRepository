@@ -13,6 +13,8 @@ public class ImagesShowViewModel extends BaseViewmodel {
     private MutableLiveData<String> mAuthor = new MutableLiveData<>();
     private MutableLiveData<String> mAvatar = new MutableLiveData<>();
     private MutableLiveData<List<String>> mImages = new MutableLiveData<>();
+    //是否关闭显示图片的Activity
+    private MutableLiveData<Boolean> mIsFinishCurrentImageActivity = new MutableLiveData<>();
 
     private MutableLiveData<String> mIndex = new MutableLiveData<>();
 
@@ -40,6 +42,10 @@ public class ImagesShowViewModel extends BaseViewmodel {
         return mAvatar;
     }
 
+    public MutableLiveData<Boolean> getIsFinishCurrentImageActivity() {
+        return mIsFinishCurrentImageActivity;
+    }
+
     /**
      * 加载数据
      * @param resPiazzaDetail
@@ -51,5 +57,12 @@ public class ImagesShowViewModel extends BaseViewmodel {
         mImages.setValue(mResPiazzaDetail.getValue().getImages());
         mIndex.setValue("1/" + mImages.getValue().size());
         mAvatar.setValue(mResPiazzaDetail.getValue().getAvatar());
+    }
+
+    /**
+     * 关闭ImageShowActivity专用退出动画,与退出按钮关联
+     */
+    public void FinishImageActivity(){
+        mIsFinishCurrentImageActivity.setValue(true);
     }
 }
