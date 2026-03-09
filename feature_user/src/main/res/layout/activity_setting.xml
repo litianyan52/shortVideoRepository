@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.featureuser.ui.setting.SettingViewmodel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.setting.SettingActivity">
+
+        <ImageView
+            android:id="@+id/setting_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="14dp"
+            android:onClick="@{()->viewModel.finishPage()}"
+            android:src="@mipmap/icon_arrow_bl_left"
+            app:layout_constraintBottom_toBottomOf="@id/title_setting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_setting" />
+
+        <TextView
+            android:id="@+id/title_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="设置"
+            android:textColor="#ff444444"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_setting">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onAccountAndBind()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:content="@{viewModel.mobile}"
+                        app:title="@{`账号与绑定`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onSetPassword()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`设置密码`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onPushSetting()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`推送设置`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onPlaySetting()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`播放设置`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onClearCache()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:content="@{viewModel.cacheSize}"
+                        app:title="@{`清除缓存`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onUserAgreement()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`用户协议`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onSumOfPrivatePolicy()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`隐私政策概要`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onPrivatePolicy()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`隐私政策`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onSettingOfPrivate()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`隐私权限设置`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onCollectOfPersonInfo()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`个人信息收集清单`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onAboutUs()}"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/item_setting_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17.5dp"
+                        app:title="@{`关于我们`}" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_marginStart="10.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9.5dp"
+                        android:background="#fff8f8f8" />
+
+                </LinearLayout>
+
+
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <include-->
+                <!--                        layout="@layout/item_setting_function"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="17.5dp"-->
+                <!--                        app:title="@{`成为作者`}" />-->
+
+                <!--                    <View-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="1dp"-->
+                <!--                        android:layout_marginStart="10.5dp"-->
+                <!--                        android:layout_marginTop="16dp"-->
+                <!--                        android:layout_marginEnd="9.5dp"-->
+                <!--                        android:background="#33000000" />-->
+
+                <!--                </LinearLayout>-->
+
+
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <include-->
+                <!--                        layout="@layout/item_setting_function"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="17.5dp"-->
+                <!--                        app:title="@{`关于开眼`}" />-->
+
+                <!--                    <View-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="1dp"-->
+                <!--                        android:layout_marginStart="10.5dp"-->
+                <!--                        android:layout_marginTop="16dp"-->
+                <!--                        android:layout_marginEnd="9.5dp"-->
+                <!--                        android:background="#33000000" />-->
+
+                <!--                </LinearLayout>-->
+
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <include-->
+                <!--                        layout="@layout/item_setting_function"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="17.5dp"-->
+                <!--                        app:title="@{`青少年模式`}" />-->
+
+                <!--                    <View-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="1dp"-->
+                <!--                        android:layout_marginStart="10.5dp"-->
+                <!--                        android:layout_marginTop="16dp"-->
+                <!--                        android:layout_marginEnd="9.5dp"-->
+                <!--                        android:background="#33000000" />-->
+
+                <!--                </LinearLayout>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="退出登录"
+                        android:onClick="@{()->viewModel.onQuitLogin()}"
+                        android:textColor="#ff444444"
+                        android:textSize="16sp"
+                        android:visibility="@{viewModel.isVisibility}" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,55 @@
+if (rootProject.ext.isModule)
+{
+    apply plugin : 'com.android.application'
+}
+else
+{
+    apply plugin : 'com.android.library'
+}
+
+android {
+    compileSdk rootProject.ext.compileSdkVersion
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    dataBinding
+            {
+                enable true
+            }
+
+    sourceSets {
+         main
+                {
+                    if (rootProject.ext.isModule)
+                    {
+                        manifest.srcFile 'src/main/alone/AndroidManifest.xml'
+                    }
+                    else
+                    {
+                        manifest.srcFile 'src/main/AndroidManifest.xml'
+                    }
+                }
+    }
+    
+}

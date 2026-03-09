@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Data"
+            type="com.example.video_data.bean.ResComment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/com_avatar"
+            ImageUri="@{Data.user.avatar}"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/icon_avatar" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{Data.user.nickname}"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@id/com_avatar"
+            app:layout_constraintTop_toTopOf="@id/com_avatar"
+            tools:text="朗夜摘星" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@{Data.content}"
+            android:textColor="#ffffffff"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/user_name"
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            tools:text="呓语" />
+
+        <TextView
+            android:id="@+id/create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="@{Data.create_date}"
+            android:textColor="#DCDCDC"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/content"
+            app:layout_constraintStart_toEndOf="@id/content"
+            app:layout_constraintTop_toTopOf="@id/content"
+            tools:text="12/03 安徽" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10.5dp"
+            android:layout_marginTop="16dp"
+            android:background="#DCDCDC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

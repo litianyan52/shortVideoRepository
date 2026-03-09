@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name="com.featuremediaplay.ui.search.SearchFunctionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.categoryDetail.CategoryDetailActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

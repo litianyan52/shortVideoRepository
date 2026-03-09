@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Data"
+            type="com.featurefind.bean.Anchor" />
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginBottom="8dp"
+            ImageUri="@{Data.image}"
+            android:layout_width="146dp"
+            android:layout_height="138dp"
+            android:scaleType="centerCrop"
+            tool:src="@mipmap/icon_notify" />
+
+        <TextView
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Data.title}"
+            android:textColor="#ff444444"
+            android:textSize="11sp"
+            tool:text="被广告当猴耍，是人生最棒的体验" />
+
+    </LinearLayout>
+
+</layout>

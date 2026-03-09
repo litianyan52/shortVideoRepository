@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ResVideo"
+            type="com.example.video_data.bean.ResVideo" />
+        <variable
+            name="isWhite"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp">
+
+        <ImageView
+            android:id="@+id/background"
+            ImageUri="@{ResVideo.image}"
+            android:layout_width="match_parent"
+            android:layout_height="261dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/icon_video_bck" />
+
+        <ImageView
+            android:id="@+id/no_sound"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/icon_no_sound"
+            app:layout_constraintStart_toStartOf="@id/background"
+            app:layout_constraintTop_toTopOf="@id/background" />
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="19.5dp"
+            android:layout_height="19.5dp"
+            android:src="@mipmap/icon_play"
+            app:layout_constraintBottom_toBottomOf="@id/background"
+            app:layout_constraintEnd_toEndOf="@id/background"
+            app:layout_constraintStart_toStartOf="@id/background"
+            app:layout_constraintTop_toTopOf="@id/background" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="22dp"
+            android:text="@{ResVideo.title}"
+            android:textColor="@{isWhite?@color/white:@color/ff000000}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toBottomOf="@id/background"
+            tools:text="旅行" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            CircleImageUri="@{ResVideo.avatar}"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="14dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title"
+            tools:src="@mipmap/icon_avatar" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{ResVideo.description}"
+            android:textColor="@{isWhite?@color/white:@color/ff444444}"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toStartOf="@id/duration"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="描述" />
+
+        <ImageView
+            android:id="@+id/duration"
+            android:layout_width="5dp"
+            android:layout_height="6dp"
+            android:layout_marginRight="4dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_video_duration"
+            app:layout_constraintBottom_toBottomOf="@id/duration_time"
+            app:layout_constraintEnd_toStartOf="@id/duration_time"
+            app:layout_constraintTop_toTopOf="@id/duration_time" />
+
+        <TextView
+            android:id="@+id/duration_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp"
+            android:text="@{ResVideo.duration}"
+            android:textColor="@{isWhite?@color/white:@color/ff444444}"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2:00" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10.5dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginRight="9.5dp"
+            android:background="#33000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

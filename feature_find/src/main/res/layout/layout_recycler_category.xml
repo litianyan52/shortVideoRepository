@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="CaData"
+            type="com.example.video_data.bean.Category" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="108dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bg_recycler_category"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            ImageUri="@{CaData.icon}"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerCrop"
+            tool:src="@mipmap/icon_notify" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@{CaData.name}"
+            android:textColor="#ff444444"
+            android:textSize="14sp"
+            tool:text="广告" />
+
+    </LinearLayout>
+</layout>

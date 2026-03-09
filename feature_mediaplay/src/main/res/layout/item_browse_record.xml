@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="label"
+            type="String" />
+
+        <variable
+            name="Data"
+            type="com.libase.db.UserLookRecord" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/item_browse_re_cover"
+            ImageUri="@{Data.cover}"
+            android:layout_width="160dp"
+            android:layout_height="92dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/black" />
+
+
+        <TextView
+            android:id="@+id/item_browse_re__title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10.5dp"
+            android:layout_marginEnd="13.5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{Data.title}"
+            android:textColor="#ff000000"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_browse_re_cover"
+            app:layout_constraintTop_toTopOf="@id/item_browse_re_cover"
+            tools:text="夏日冲浪日记" />
+
+        <TextView
+            android:id="@+id/item_browse_re__label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="10.5dp"
+            android:text="@{label}"
+            android:textColor="#ff000000"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/item_browse_re_cover"
+            app:layout_constraintStart_toEndOf="@id/item_browse_re_cover"
+            tools:text="# 旅行" />
+
+        <View
+            android:id="@+id/item_browse_re__line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="14.5dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="13.5dp"
+            android:background="#1a000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_browse_re_cover" />
+
+
+        <CheckBox
+            android:id="@+id/item_browse_record_checkbox"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="visible"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toBottomOf="@id/item_browse_re_cover" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

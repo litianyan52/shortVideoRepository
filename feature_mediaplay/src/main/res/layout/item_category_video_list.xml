@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Data"
+            type="com.example.video_data.bean.categoryVideoBean.ResCategoryVideo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/cate_video_author_avatar"
+            CircleImageUri="@{Data.avatar}"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/icon_avatar" />
+
+        <TextView
+            android:id="@+id/cate_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{Data.title}"
+            android:textColor="#ff000000"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@id/cate_video_author_avatar"
+            app:layout_constraintTop_toTopOf="@id/cate_video_author_avatar"
+            tools:text="Apple 苹果广告精选" />
+
+        <TextView
+            android:id="@+id/cate_video_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1.5dp"
+            android:text="2024.12.13"
+            android:textColor="#ff9c9c9c"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/cate_video_title"
+            app:layout_constraintTop_toBottomOf="@id/cate_video_title" />
+
+        <ImageView
+            android:id="@+id/cate_video_cover"
+            ImageUri="@{Data.image}"
+            android:layout_width="match_parent"
+            android:layout_height="212dp"
+            android:layout_marginTop="10.5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cate_video_author_avatar"
+            tools:src="#FF000000" />
+
+        <ImageView
+            android:id="@+id/cate_video_play"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:src="@mipmap/icon_play"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cate_video_cover" />
+
+        <TextView
+            android:id="@+id/cate_video_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14.5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{Data.description}"
+            android:textColor="#ff444444"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cate_video_cover"
+            tools:text="现在，您可以在信息中直接创建独特的 Genmoii。只需描述您想要创建的 Genmoii，然后将其添加到您的对话中。" />
+
+
+        <ImageView
+            android:id="@+id/cate_video_like"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="40dp"
+            android:src="@{Data.islike==0?@drawable/icon_cate_unlike:@drawable/icon_cate_like}"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cate_video_description" />
+
+        <TextView
+            android:id="@+id/num_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="@{Data.likes}"
+            android:textColor="#ff9c9c9c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_like"
+            app:layout_constraintStart_toEndOf="@id/cate_video_like"
+            app:layout_constraintTop_toTopOf="@id/cate_video_like"
+            tools:text="210" />
+
+
+        <ImageView
+            android:id="@+id/cate_video_collect"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@{Data.iscollection==0?@drawable/icon_cate_uncollect:@drawable/icon_cate_collect}"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_like"
+            app:layout_constraintEnd_toStartOf="@id/cate_video_commend"
+            app:layout_constraintStart_toEndOf="@id/cate_video_like"
+            app:layout_constraintTop_toTopOf="@id/cate_video_like" />
+
+        <TextView
+            android:id="@+id/num_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="@{Data.collection}"
+            android:textColor="#ff9c9c9c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_collect"
+            app:layout_constraintStart_toEndOf="@id/cate_video_collect"
+            app:layout_constraintTop_toTopOf="@id/cate_video_collect"
+            tools:text="210" />
+
+        <ImageView
+            android:id="@+id/cate_video_commend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="100dp"
+            android:src="@mipmap/icon_cate_comment"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_collect"
+            app:layout_constraintEnd_toStartOf="@id/cate_video_share"
+            app:layout_constraintStart_toEndOf="@id/cate_video_collect"
+            app:layout_constraintTop_toTopOf="@id/cate_video_collect" />
+
+        <TextView
+            android:id="@+id/num_commend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="@{Data.comments}"
+            android:textColor="#ff9c9c9c"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/cate_video_commend"
+            app:layout_constraintStart_toEndOf="@id/cate_video_commend"
+            app:layout_constraintTop_toTopOf="@id/cate_video_commend"
+            tools:text="2" />
+
+
+        <ImageView
+            android:id="@+id/cate_video_share"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="14dp"
+            android:src="@mipmap/icon_share_bl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cate_video_commend" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#33000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cate_video_like" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+    <variable
+        name="Data"
+        type="com.featurepiazza.bean.ResPiazza.ResPiazzaDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21.5dp">
+
+        <ImageView
+            android:id="@+id/pia_image"
+            android:layout_width="173dp"
+            android:layout_height="173dp"
+            tool:src="@mipmap/icon_avatar"
+            android:scaleType="centerCrop"
+            ImageUri="@{Data.cover}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pia_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tool:text="爱吃的的的"
+            android:text="@{Data.title}"
+            android:textColor="#ff444444"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@id/pia_image"
+            app:layout_constraintStart_toStartOf="@id/pia_image"
+            app:layout_constraintTop_toBottomOf="@+id/pia_image" />
+
+        <ImageView
+            android:id="@+id/pia_avatar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="15.5dp"
+            tool:src="@mipmap/icon_avatar"
+            CircleImageUri="@{Data.avatar}"
+            app:layout_constraintStart_toStartOf="@id/pia_title"
+            app:layout_constraintTop_toBottomOf="@id/pia_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            tool:text="山上娃娃"
+            android:text="@{Data.author}"
+            android:textColor="#ffbbbbbb"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/pia_avatar"
+            app:layout_constraintStart_toEndOf="@id/pia_avatar"
+            app:layout_constraintTop_toTopOf="@id/pia_avatar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

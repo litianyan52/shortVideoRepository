@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.featureuser.ui.changeInfo.ChangeInfoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.changeInfo.ChangeInfoActivity">
+
+        <ImageView
+            android:id="@+id/change_info_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:onClick="@{()->viewModel.finishPage()}"
+            android:src="@mipmap/icon_arrow_bl_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/change_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑个人资料"
+            android:textColor="#ff444444"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/change_info_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/change_info_back" />
+
+
+        <TextView
+            android:id="@+id/change_info_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:text="保存"
+            android:onClick="@{()->viewModel.changeUserInfo()}"
+            android:textColor="#ff000000"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/change_info_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/change_info_title" />
+
+        <ImageView
+            android:id="@+id/change_info_bg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="12dp"
+            android:src="@mipmap/icon_bg_change_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change_info_title" />
+
+        <ImageView
+            android:id="@+id/change_info_avatar"
+            android:layout_width="80dp"
+            CircleImageUri="@{viewModel.avatar}"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="@id/change_info_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change_info_bg"
+            tools:src="@mipmap/icon_user_unlogin" />
+
+        <TextView
+            android:id="@+id/change_info_change_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="点击更换头像"
+            android:textColor="#ff9c9c9c"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/change_info_avatar"
+            app:layout_constraintStart_toStartOf="@id/change_info_avatar"
+            app:layout_constraintTop_toBottomOf="@id/change_info_avatar"
+
+            />
+
+        <TextView
+            android:id="@+id/change_info_change_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="44dp"
+            android:text="名字"
+            android:textColor="#ff9c9c9c"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change_info_change_avatar" />
+
+        <EditText
+            android:id="@+id/change_info_input_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            android:text="@={viewModel.nickName}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/change_info_change_name"
+            app:layout_constraintTop_toTopOf="@id/change_info_change_name" />
+
+
+        <TextView
+            android:id="@+id/change_info_change_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:text="简介"
+            android:textColor="#ff9c9c9c"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/change_info_change_name"
+            app:layout_constraintTop_toBottomOf="@id/change_info_change_name" />
+
+        <EditText
+            android:id="@+id/change_info_input_introduction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            android:hint="介绍一下你自己"
+            android:text="@={viewModel.bio}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/change_info_change_introduction"
+            app:layout_constraintTop_toTopOf="@id/change_info_change_introduction" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

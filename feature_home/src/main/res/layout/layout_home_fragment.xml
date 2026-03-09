@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewmudel"
+            type="com.featurehome.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="112.91dp"
+            android:layout_height="12.52dp"
+            android:layout_marginLeft="14.5dp"
+            android:layout_marginTop="5.5dp"
+            android:src="@mipmap/icon_logo"
+            app:layout_constraintBottom_toBottomOf="@id/rd_indicator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rd_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/message"
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/recommend"
+                android:drawableLeft="@drawable/home_fragment_select"
+                android:text="推荐"
+                android:drawablePadding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/daily"
+                android:drawablePadding="2dp"
+                android:drawableLeft="@drawable/home_fragment_select"
+                android:text="日报"
+                android:layout_marginLeft="21dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="14dp"
+            android:src="@mipmap/icon_notify"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rd_indicator"
+            app:layout_constraintBottom_toBottomOf="@id/rd_indicator"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

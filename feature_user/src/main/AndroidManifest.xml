@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name=".ui.changeInfo.ChangeInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.featuremediaplay.ui.browseRecord.BrowseRecordActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.featuremediaplay.ui.myCollect.MyCollectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.aboutUS.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.setPassword.PasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pushSetting.PushSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.privateSetting.PriSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.playSetting.PlaySettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.account.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.agreementWeb.AgreeMentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
