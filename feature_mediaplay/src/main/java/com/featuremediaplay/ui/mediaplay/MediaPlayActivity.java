@@ -48,10 +48,10 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         super.onNewIntent(intent);
         mVideoId = intent.getIntExtra(ArouterPath.Video.KEY_VIDEO_ID, 0);
         mViewModel.RequestVideoInfo(String.valueOf(mVideoId)); //请求视频相关的数据
-        mViewModel.getIsEnableLoadMore().setValue(true);   //因为上个视频可能已经因为数据不足十条的原因导致不能继续请求数据了,这里要设置能请求数据
+        mViewModel.getIsEnableLoadMore().setValue(true);   //因为上个视频可能已经因为数据不足十条的原因导致不能继续请求数据了,这里要重置使能请求数据
         Log.d(TAG, "onNewIntent: " +mVideoId);
         mdataBinding.nts.scrollTo(0,0);
-
+        mIntroductionFragment.initView();//这个刷新范围其实可以再小一些,后面可以优化一下
     }
 
     private MediaPlayerManager mInstance;

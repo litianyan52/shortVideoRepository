@@ -55,6 +55,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
 
     @Override
     public void initView() {
+        //获取视频播放下方的视频列表
         VideoListFragment videoListFragment = (VideoListFragment) ARouter.getInstance().build(ArouterPath.Video.FRAGMENT_VideoList)
                 .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY,
                         ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)

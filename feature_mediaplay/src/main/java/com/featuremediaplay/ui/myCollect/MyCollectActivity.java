@@ -9,6 +9,7 @@ import com.featuremediaplay.R;
 import com.featuremediaplay.databinding.ActivityMyCollectBinding;
 import com.libase.base.BaseActivity;
 import com.libase.config.ArouterPath;
+import com.libase.utils.StatusBarUtils;
 
 @Route(path = ArouterPath.Video.ACTIVITY_MY_COLLECT)
 public class MyCollectActivity extends BaseActivity<MyCollectViewModel, ActivityMyCollectBinding> {
@@ -31,7 +32,7 @@ public class MyCollectActivity extends BaseActivity<MyCollectViewModel, Activity
 
     @Override
     public void initView() {
-
+        StatusBarUtils.AddStatusHeightToRootView(mdataBinding.getRoot());
     }
 
     @Override

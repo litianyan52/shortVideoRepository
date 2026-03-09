@@ -34,6 +34,7 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
 
     @Override
     public MediaPlayViewModel getViewModel() {
+        //设置共享ViewModel,使各个地方的数据能够及时同步
         return new ViewModelProvider(requireActivity()).get(MediaPlayViewModel.class);
     }
 
