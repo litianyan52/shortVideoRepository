@@ -12,7 +12,7 @@ import com.featuremediaplay.databinding.ItemBrowseRecordBinding;
 import com.libase.base.list.BaseAdapter;
 import com.libase.db.UserLookRecord;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
