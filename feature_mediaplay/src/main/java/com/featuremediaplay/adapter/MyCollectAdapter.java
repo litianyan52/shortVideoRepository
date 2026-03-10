@@ -27,7 +27,7 @@ public class MyCollectAdapter extends BaseAdapter<UserLookRecord, MyCollectAdapt
     @Override
     public MyCollectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemMyCollectBinding binding = ItemMyCollectBinding.inflate(inflater, null, false);
+        ItemMyCollectBinding binding = ItemMyCollectBinding.inflate(inflater, parent, false);
 
         return new MyCollectViewHolder(binding);
     }

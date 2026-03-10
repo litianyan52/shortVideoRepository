@@ -15,5 +15,7 @@ public class NetAddress {
     public final static String GET_CATEGORY_VIDEO_LIST = "addons/cms/api.eye/category_list";
     public final static String SEARCH_VIDEO = "addons/cms/api.eye/search";
 
+    public final static String GET_THEME_LIST = "addons/cms/api.eye/anchor";
+
 
 }

@@ -271,7 +271,6 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
     /**
      * 发送评论
-     *
      * @param comment 要发送的评论内容
      */
     public void sendComment(String comment) {

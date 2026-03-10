@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <application>
 
+    <application>
+        <activity
+            android:name=".ui.themPlayList.ThemePlayListActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.mediaplay.MediaPlayActivity"
             android:exported="false"

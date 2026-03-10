@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.featurefind.bean.Anchor;
 import com.featurefind.databinding.LayoutRecyclerAnchorBinding;
 import com.libase.base.list.BaseAdapter;
+import com.libase.config.ArouterPath;
 
 import java.util.List;
 
@@ -48,6 +50,15 @@ public class AnchorAdapter extends BaseAdapter<Anchor, AnchorAdapter.AnchorViewH
         public AnchorViewHolder(@NonNull LayoutRecyclerAnchorBinding anchorBinding) {
             super(anchorBinding.getRoot());
             mBinding = anchorBinding;
+            /**
+             * 点击跳转到主题播单详情页
+             */
+            mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_THEME_LIST_PLAY).navigation();
+                }
+            });
         }
     }
 }

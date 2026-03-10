@@ -62,6 +62,7 @@ public class ArouterPath {
         public static final String KEY_TYPE = VIDEO + "/key_type_id";
         public static final String ACTIVITY_MY_COLLECT = VIDEO + "/myCollectActivity";
         public static final String ACTIVITY_BROWSE_RECORD = VIDEO + "/recordActivity";
+        public static final String ACTIVITY_THEME_LIST_PLAY = VIDEO + "/themeListPlayActivity";
     }
 
 }

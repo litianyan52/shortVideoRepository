@@ -13,6 +13,7 @@ import com.example.video_data.bean.ResVideoAllInfo;
 import com.example.video_data.bean.categoryVideoBean.ResCategoryVideo;
 import com.example.video_data.bean.searchVideoBean.ResSearch;
 import com.example.video_data.bean.searchVideoBean.SearchBody;
+import com.example.video_data.bean.themPlayListBean.ResThemePlayList;
 import com.featuremediaplay.netAddress.NetAddress;
 import com.network.bean.ResBase;
 import com.network.bean.ResList;
@@ -74,6 +75,11 @@ public interface MediaApiService {
     @POST(NetAddress.SEARCH_VIDEO)
         //搜索
     Call<ResBase<List<ResSearch>>> getSearchResult(@Body SearchBody body);
+
+    @GET(NetAddress.GET_THEME_LIST)
+        //搜索
+    Call<ResBase<List<ResThemePlayList>>> getThemeListResult();
+
 
 
 }

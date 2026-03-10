@@ -53,7 +53,7 @@ public class piazzaAdapter extends BaseAdapter<ResPiazza, RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == BANNER_TYPE) {
-            BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
+            BannerViewHolder bannerViewHolder = (BannerViewHolder) holder; //因为有两种ViewHolder,所以就用强转,不然要写两个onBindViewHolder
             LayoutBannerBinding binding = bannerViewHolder.bannerBinding;
             binding.xbanner.setIsClipChildrenMode(true);
             binding.xbanner.setBannerData(R.layout.layout_banner_item, mBannerDataLists);
@@ -123,7 +123,7 @@ public class piazzaAdapter extends BaseAdapter<ResPiazza, RecyclerView.ViewHolde
             mOriginalBannerDataLists = banner_data.getLists();
             mBannerDataLists = convertXbannerData(mOriginalBannerDataLists);  //转成Xbanner需要的数据
             mImageDataLists = image_data.getLists();
-            notifyDataSetChanged(); //一定要加这个
+            notifyDataSetChanged(); //一定要加这个,不然可能刷新不出来数据
         }
     }
 
