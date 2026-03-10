@@ -1,5 +1,6 @@
 package com.featureuser.ui.changeInfo;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -37,5 +38,13 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, Activi
     @Override
     public void initData() {
         mViewModel.setBaseInfo();
+        mViewModel.getIsChanged().observe(ChangeInfoActivity.this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isChanged) {
+                if (isChanged){
+                    finish();
+                }
+            }
+        });
     }
 }

@@ -32,6 +32,7 @@ public class ChangeInfoModel {
 
     /**
      * 发起修改用户信息的请求
+     *
      * @param avatar
      * @param username
      * @param nickname
@@ -42,6 +43,8 @@ public class ChangeInfoModel {
         UserApiService apiService = UserApiServiceProvider.provider();
         Call<ResBase<Object>> call = apiService.changeUserInfo(UserManager.getInstance().getUserToken(),
                 new ChangeInfoBody(avatar, username, nickname, bio));
+        UserManager instance = UserManager.getInstance();
+        instance.ChangeUserInfo(avatar, username, nickname, bio);
         ApiCall.enqueueAllowDataNull(call, new ApiCall.ApiCallback<ResBase<Object>>() {
             @Override
             public void GetLiseSuccess(ResBase<Object> result) {
@@ -54,4 +57,6 @@ public class ChangeInfoModel {
             }
         });
     }
+
+
 }

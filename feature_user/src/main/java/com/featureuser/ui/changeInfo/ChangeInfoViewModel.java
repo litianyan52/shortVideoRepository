@@ -19,6 +19,7 @@ public class ChangeInfoViewModel extends BaseViewmodel {
     private MutableLiveData<String> mAvatar = new MutableLiveData<>();
     private MutableLiveData<String> mBio = new MutableLiveData<>();
     private MutableLiveData<String> mNickName = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsChanged = new MutableLiveData<>(false);
 
     public MutableLiveData<String> getAvatar() {
         return mAvatar;
@@ -30,6 +31,10 @@ public class ChangeInfoViewModel extends BaseViewmodel {
 
     public MutableLiveData<String> getNickName() {
         return mNickName;
+    }
+
+    public MutableLiveData<Boolean> getIsChanged() {
+        return mIsChanged;
     }
 
     public void setBaseInfo() {
@@ -52,6 +57,7 @@ public class ChangeInfoViewModel extends BaseViewmodel {
                     public void RequestSuccess(ResBase<Object> result) {
                             showToastText(result.getMsg());
                         MessageEvent.LoginEvent.postSticky(true);   //告诉本页面和其他页面刷新数据
+                        mIsChanged.setValue(true);
                     }
 
                     @Override

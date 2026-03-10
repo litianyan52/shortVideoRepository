@@ -152,4 +152,20 @@ public class UserManager {
                 .remove(KEY_TOKEN)  //记得token也要移除
                 .apply();
     }
+
+
+    /**
+     * 用户修改信息时本地信息也要改变
+     * @param avatar
+     * @param username
+     * @param nickname
+     * @param bio
+     */
+    public void ChangeUserInfo(String avatar, String username, String nickname, String bio){
+        mSP.edit().putString(KEY_AVATAR,avatar)
+                .putString(KEY_USERNAME,username)
+                .putString(KEY_NICKNAME,nickname)
+                .putString(KEY_BIO,bio)
+                .apply();
+    }
 }
