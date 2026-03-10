@@ -51,7 +51,7 @@ public class BrowseRecordAdapter extends BaseAdapter<UserLookRecord, BrowseRecor
     @Override
     public BrowseRecordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemBrowseRecordBinding binding = ItemBrowseRecordBinding.inflate(inflater, null, false);
+        ItemBrowseRecordBinding binding = ItemBrowseRecordBinding.inflate(inflater, parent, false);
         return new BrowseRecordViewHolder(binding);
     }
 

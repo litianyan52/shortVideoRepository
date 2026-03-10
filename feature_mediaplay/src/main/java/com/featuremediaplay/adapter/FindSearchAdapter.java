@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.video_data.bean.searchVideoBean.ResSearch;
 import com.featuremediaplay.databinding.ItemSearchRecyclerviewBinding;
 import com.libase.base.list.BaseAdapter;
+import com.libase.config.ArouterPath;
 
 import java.util.List;
 
@@ -52,6 +54,18 @@ public class FindSearchAdapter extends BaseAdapter<ResSearch, FindSearchAdapter.
         public SearchAdapterViewHolder(@NonNull ItemSearchRecyclerviewBinding bind) {
             super(bind.getRoot());
             mBind = bind;
+            /**
+             * 从搜索结果点击视频可以直接播放
+             */
+            mBind.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    ResSearch resSearch = mList.get(position);
+                    ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_MEDIA_PLAY)
+                            .withInt(ArouterPath.Video.KEY_VIDEO_ID,resSearch.getId()).navigation();
+                }
+            });
         }
     }
 }
