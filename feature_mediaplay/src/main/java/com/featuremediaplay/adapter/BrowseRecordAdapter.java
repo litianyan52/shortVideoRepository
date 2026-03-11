@@ -1,5 +1,6 @@
 package com.featuremediaplay.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class BrowseRecordAdapter extends BaseAdapter<UserLookRecord, BrowseRecor
             }
         }
         holder.mBinding.executePendingBindings();
+        Log.d("BrowseRecordAdapter", ""+position);
     }
 
     @Override
