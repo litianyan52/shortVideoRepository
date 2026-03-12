@@ -30,9 +30,9 @@ public class YesOrNoDialog extends DialogFragment {
         args.putString("KEY_TITLE", title);
         args.putString("KEY_CONTENT", content);
 
-        YesOrNoDialog fragment = new YesOrNoDialog(callBack);
-        fragment.setArguments(args);
-        return fragment;
+        YesOrNoDialog dialog = new YesOrNoDialog(callBack);
+        dialog.setArguments(args);
+        return dialog;
     }
 
     public YesOrNoDialog(DialogCallBack callBack) {

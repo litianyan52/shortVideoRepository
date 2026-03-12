@@ -65,6 +65,7 @@ dependencies {
         implementation project(":feature_user")
         implementation project(":library_base")
         implementation project(":feature_mediaplay")
+        implementation project(":feature_camera")
 
     }
 }

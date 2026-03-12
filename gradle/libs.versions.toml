@@ -21,6 +21,8 @@ eventBus = "3.3.1"
 media3 = "1.0.0"
 flowHelper = "v2.3"
 room = "2.6.1"
+camerax_version = "1.2.0-alpha04"
+camera_view_version = "1.0.0-alpha31"
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -36,6 +38,11 @@ media3_exoplayer = { group = "androidx.media3", name = "media3-exoplayer", versi
 media3_ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
 room_runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room_compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camerax_version" }
+camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax_version" }
+camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax_version" }
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camera_view_version" }
+
 
 
 #第三方库

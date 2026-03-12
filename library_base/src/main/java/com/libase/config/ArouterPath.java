@@ -65,4 +65,13 @@ public class ArouterPath {
         public static final String ACTIVITY_THEME_LIST_PLAY = VIDEO + "/themeListPlayActivity";
     }
 
+
+
+    public static class Camera{
+        private static final String CAMERA = "/camera";
+
+
+        public static final String ACTIVITY_CAMERA = CAMERA + "/cameraActivity";
+    }
+
 }

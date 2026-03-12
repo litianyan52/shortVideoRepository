@@ -38,4 +38,6 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation project(":library_base")
     implementation project(":video_data")
+
+//    implementation project(":feature_camera")
 }

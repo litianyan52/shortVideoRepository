@@ -20,6 +20,7 @@ public class ChangeInfoViewModel extends BaseViewmodel {
     private MutableLiveData<String> mBio = new MutableLiveData<>();
     private MutableLiveData<String> mNickName = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsChanged = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> mIsShowChangeAvatarDialog = new MutableLiveData<>(false);//是否显示改变头像的弹窗
 
     public MutableLiveData<String> getAvatar() {
         return mAvatar;
@@ -37,6 +38,13 @@ public class ChangeInfoViewModel extends BaseViewmodel {
         return mIsChanged;
     }
 
+    public MutableLiveData<Boolean> getIsShowChangeAvatarDialog() {
+        return mIsShowChangeAvatarDialog;
+    }
+
+    /**
+     * 加载页面初始数据
+     */
     public void setBaseInfo() {
         mAvatar.setValue(mModel.getUserAvatar());
         mNickName.setValue(mModel.getUserNickName());
@@ -55,19 +63,24 @@ public class ChangeInfoViewModel extends BaseViewmodel {
                 mNickName.getValue(), mBio.getValue(), new IRequestCallBack<ResBase<Object>>() {
                     @Override
                     public void RequestSuccess(ResBase<Object> result) {
-                            showToastText(result.getMsg());
+                        showToastText(result.getMsg());
                         MessageEvent.LoginEvent.postSticky(true);   //告诉本页面和其他页面刷新数据
                         mIsChanged.setValue(true);
                     }
 
                     @Override
                     public void RequestFailed(int errorCodeValue, String errorMsg) {
-                            showToastText(errorMsg);
+                        showToastText(errorMsg);
                     }
                 });
     }
 
 
+    /**
+     * 判断用户当前是否修改自己的信息
+     *
+     * @return
+     */
     public boolean isChange() {
         if (!UserManager.getInstance().getUserInfo().getUser().getNickname().equals(mNickName.getValue())) {
             return true;
@@ -82,4 +95,11 @@ public class ChangeInfoViewModel extends BaseViewmodel {
 
         return false;
     }
+
+
+
+    public void showChangeAvatarDialog(){
+        mIsShowChangeAvatarDialog.setValue(true);//告诉Activity显示弹窗
+    }
+
 }

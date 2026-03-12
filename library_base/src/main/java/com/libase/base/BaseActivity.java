@@ -76,16 +76,21 @@ public abstract class BaseActivity<VM extends BaseViewmodel, V extends ViewDataB
             {
                 mProgressBar.setVisibility(status == true ? View.VISIBLE : View.GONE);
             });
+
+
+            /**
+             * 观察是否需要关闭页面
+             */
+            mViewModel.getIsFinish().observe(this, isFinish ->
+            {
+                if (isFinish) {
+                    finish();
+                }
+            });
+
+
         }
-        /**
-         * 观察是否需要关闭页面
-         */
-        mViewModel.getIsFinish().observe(this, isFinish ->
-        {
-            if (isFinish) {
-                finish();
-            }
-        });
+
 
     }
 
@@ -95,7 +100,13 @@ public abstract class BaseActivity<VM extends BaseViewmodel, V extends ViewDataB
             mdataBinding.setVariable(getViewModelId(), mViewModel);
             mdataBinding.setLifecycleOwner(this);
             mdataBinding.executePendingBindings(); //实时更新数据
+            return;
+
         }
+
+        mdataBinding.setLifecycleOwner(this);
+        mdataBinding.executePendingBindings(); //实时更新数据
+
 
     }
     // EdgeToEdge.enable(this);
