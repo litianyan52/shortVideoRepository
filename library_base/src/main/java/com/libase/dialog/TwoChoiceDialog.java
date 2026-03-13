@@ -53,6 +53,7 @@ public class TwoChoiceDialog extends DialogFragment {
         binding.firstChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
                 mCallBack.chooseFirst();
             }
         });
@@ -60,6 +61,7 @@ public class TwoChoiceDialog extends DialogFragment {
         binding.secondChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
                 mCallBack.chooseSecond();
             }
         });

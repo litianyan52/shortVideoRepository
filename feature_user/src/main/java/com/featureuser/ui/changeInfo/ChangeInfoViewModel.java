@@ -1,7 +1,11 @@
 package com.featureuser.ui.changeInfo;
 
+import android.net.Uri;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.featureuser.bean.ResLoadFile;
 import com.libase.base.BaseViewmodel;
 import com.libase.base.IRequestCallBack;
 import com.libase.eventBus.MessageEvent;
@@ -100,6 +104,28 @@ public class ChangeInfoViewModel extends BaseViewmodel {
 
     public void showChangeAvatarDialog(){
         mIsShowChangeAvatarDialog.setValue(true);//告诉Activity显示弹窗
+    }
+
+
+    /**
+     * 上传文件
+     * @param uri
+     */
+    public void upLoadFile(Uri uri){
+        mModel.uploadFile(uri, new IRequestCallBack<ResLoadFile>() {
+            @Override
+            public void RequestSuccess(ResLoadFile result) {
+                showToastText("上传成功");
+                mAvatar.setValue(result.getFullurl());//头像替换为返回来的URL,但这时并未保存到UserManager
+
+            }
+
+            @Override
+            public void RequestFailed(int errorCodeValue, String errorMsg) {
+                showLoading(false);
+                showToastText(errorMsg);
+            }
+        });
     }
 
 }

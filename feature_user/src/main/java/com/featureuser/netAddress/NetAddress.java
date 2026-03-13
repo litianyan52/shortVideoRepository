@@ -7,4 +7,6 @@ public class NetAddress {
     public static final String User_SET_PASSWORD = "addons/cms/api.login/resetpwd";
     public static final String User_QUIT_LOGIN ="addons/cms/api.user/logout";
     public static final String User_CHANGE_INFO ="addons/cms/api.user/profile";
+
+    public static final String User_UPLOAD_FILE ="api/common/upload";
 }

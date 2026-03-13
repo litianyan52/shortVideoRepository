@@ -1,7 +1,11 @@
 package com.featureuser.ui.changeInfo;
 
+import android.net.Uri;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,6 +16,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.featureuser.BR;
 import com.featureuser.R;
 import com.featureuser.databinding.ActivityChangeInfoBinding;
+import com.libase.adapter.commonBindingAdapter;
 import com.libase.base.BaseActivity;
 import com.libase.config.ArouterPath;
 import com.libase.dialog.TwoChoiceDialog;
@@ -19,7 +24,7 @@ import com.libase.utils.StatusBarUtils;
 
 @Route(path = ArouterPath.User.ACTIVITY_CHANGE_INFO)
 public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, ActivityChangeInfoBinding> {
-
+    private ActivityResultLauncher<String> imagePickLauncher;
 
     @Override
     public ChangeInfoViewModel getViewModel() {
@@ -38,12 +43,45 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, Activi
 
     @Override
     public void initView() {
+
         StatusBarUtils.AddStatusHeightToRootView(mdataBinding.getRoot());
+
+
+
+        /**
+         * 表明取回来的是图片,在这里处理拿回来的图片Uri
+         */
+        imagePickLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri uri) {
+                if (uri == null){
+                    return;
+                }
+                //改变当前头像,但是还未保存头像
+                commonBindingAdapter.LoadCircleImage(mdataBinding.changeInfoAvatar,uri.toString());
+                mViewModel.upLoadFile(uri);
+            }
+        });
     }
 
     @Override
     public void initData() {
         mViewModel.setBaseInfo();
+
+//        /**
+//         * 上传成功后使用uri更新婴一下头像,不然等Glide通过URL从网络获取时间过长
+//         */
+//        mViewModel.getAvatar().observe(ChangeInfoActivity.this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String s) {
+//                if (mAvatarUri == null)
+//                {
+//                    return;
+//                }
+//                commonBindingAdapter.LoadCircleImage(mdataBinding.changeInfoAvatar,mAvatarUri.toString());
+//                Log.d("tag", "onChanged: ");
+//            }
+//        });
         /**
          * 保存后关闭页面
          */
@@ -64,35 +102,12 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, Activi
                         @Override
                         public void chooseFirst() {
 
-                            ARouter.getInstance().build(ArouterPath.Camera.ACTIVITY_CAMERA).navigation(ChangeInfoActivity.this, new NavCallback() {
-                                @Override
-                                public void onArrival(Postcard postcard) {
-                                    Log.d("nav", "onArrival: ");
-                                }
-
-                                @Override
-                                public void onFound(Postcard postcard) {
-                                    super.onFound(postcard);
-                                    Log.d("nav", "onFound: ");
-                                }
-
-                                @Override
-                                public void onLost(Postcard postcard) {
-                                    super.onLost(postcard);
-                                    Log.d("nav", "onLost: ");
-                                }
-
-                                @Override
-                                public void onInterrupt(Postcard postcard) {
-                                    super.onInterrupt(postcard);
-                                    Log.d("nav", "onInterrupt: ");
-                                }
-                            });
+                            ARouter.getInstance().build(ArouterPath.Camera.ACTIVITY_CAMERA).navigation();
                         }
 
                         @Override
                         public void chooseSecond() {
-
+                            imagePickLauncher.launch("image/*");//打开相册
                         }
                     });
                 }
