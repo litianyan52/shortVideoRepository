@@ -18,12 +18,17 @@ import java.util.List;
 public class AnchorAdapter extends BaseAdapter<Anchor, AnchorAdapter.AnchorViewHolder> {
     private List<Anchor> mList;
 
+    private AnchorAdapterCallBack mCallBack;
+
     @Override
     public void setDatas(List<Anchor> data) {
         this.mList = data;
         notifyDataSetChanged();
     }
 
+    public void setCallBack(AnchorAdapterCallBack mCallBack) {
+        this.mCallBack = mCallBack;
+    }
 
     @NonNull
     @Override
@@ -56,9 +61,15 @@ public class AnchorAdapter extends BaseAdapter<Anchor, AnchorAdapter.AnchorViewH
             mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_THEME_LIST_PLAY).navigation();
+                   // ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_THEME_LIST_PLAY).navigation();
+                    mCallBack.navigateToThemeListActivity();
                 }
             });
         }
+    }
+
+
+    public interface AnchorAdapterCallBack{
+        void navigateToThemeListActivity();
     }
 }

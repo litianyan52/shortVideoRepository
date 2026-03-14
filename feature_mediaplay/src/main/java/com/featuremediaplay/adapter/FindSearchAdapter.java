@@ -18,11 +18,16 @@ import java.util.List;
 public class FindSearchAdapter extends BaseAdapter<ResSearch, FindSearchAdapter.SearchAdapterViewHolder> {
 
     private List<ResSearch> mList;
+    private FinaSearchAdapter mCallback;
 
     @Override
     public void setDatas(List<ResSearch> data) {
         mList = data;
         notifyDataSetChanged();
+    }
+
+    public void setCallback(FinaSearchAdapter mCallback) {
+        this.mCallback = mCallback;
     }
 
     @NonNull
@@ -62,10 +67,15 @@ public class FindSearchAdapter extends BaseAdapter<ResSearch, FindSearchAdapter.
                 public void onClick(View v) {
                     int position = getLayoutPosition();
                     ResSearch resSearch = mList.get(position);
-                    ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_MEDIA_PLAY)
-                            .withInt(ArouterPath.Video.KEY_VIDEO_ID,resSearch.getId()).navigation();
+                    mCallback.navigateToMediaPlay(resSearch);
+
                 }
             });
         }
+    }
+
+
+    public interface FinaSearchAdapter{
+        void navigateToMediaPlay(ResSearch resSearch);
     }
 }

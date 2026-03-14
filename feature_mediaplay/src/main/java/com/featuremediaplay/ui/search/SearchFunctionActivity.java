@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.video_data.bean.searchVideoBean.ResSearch;
 import com.featuremediaplay.BR;
 import com.featuremediaplay.R;
@@ -58,6 +59,16 @@ public class SearchFunctionActivity extends BaseActivity<SearchFunctionViewModel
         });
         mdataBinding.searchRecycler.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new FindSearchAdapter();
+        /**
+         * 从Adapter中拿到要播放的视频信息
+         */
+        mAdapter.setCallback(new FindSearchAdapter.FinaSearchAdapter() {
+            @Override
+            public void navigateToMediaPlay(ResSearch resSearch) {
+                ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_MEDIA_PLAY)
+                        .withInt(ArouterPath.Video.KEY_VIDEO_ID, resSearch.getId()).navigation();
+            }
+        });
         mdataBinding.searchRecycler.setAdapter(mAdapter);
 
     }

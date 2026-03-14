@@ -76,6 +76,15 @@ public class FindFragment extends BaseFragment<FindViewModel, LayoutFragmentFind
             }
         });
         mAnchorAdapter = new AnchorAdapter();
+        mAnchorAdapter.setCallBack(new AnchorAdapter.AnchorAdapterCallBack() {
+            /**
+             * 跳转到主题播单页面的回调
+             */
+            @Override
+            public void navigateToThemeListActivity() {
+                ARouter.getInstance().build(ArouterPath.Video.ACTIVITY_THEME_LIST_PLAY).navigation();
+            }
+        });
         mDataBinding.recyclerviewCategory.setAdapter(mCategoryAdapter);
         mDataBinding.recyclerviewTheme.setAdapter(mAnchorAdapter);
     }
@@ -91,4 +100,6 @@ public class FindFragment extends BaseFragment<FindViewModel, LayoutFragmentFind
         });
 
     }
+
+
 }
