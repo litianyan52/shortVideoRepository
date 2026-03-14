@@ -20,8 +20,8 @@ import java.util.concurrent.ExecutionException;
 
 public class CameraManager {
     private static volatile CameraManager manager;
-    private final String [] PERMISSIONS = new String[]{Manifest.permission.CAMERA};
-    private  int PermissionRequestCode;
+    private final String[] PERMISSIONS = new String[]{Manifest.permission.CAMERA};
+    private int PermissionRequestCode;
     private ImageCapture imageCapture;
 
     public static CameraManager getInstance() {
@@ -37,7 +37,7 @@ public class CameraManager {
     }
 
 
-    public void startCamera(Context context, int RequestPermissionCode, PreviewView previewView) {
+    public void startCamera(Context context, Activity activity, int RequestPermissionCode, PreviewView previewView, LifecycleOwner lifecycleOwner) {
         if (checkCameraPermissions(context)) {
 
 
@@ -49,10 +49,10 @@ public class CameraManager {
                         ProcessCameraProvider cameraProvider = instance.get();
                         CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
                         imageCapture = new ImageCapture.Builder().build();
-                       Preview preview = new Preview.Builder().build();
-                       preview.setSurfaceProvider(previewView.getSurfaceProvider());
+                        Preview preview = new Preview.Builder().build();
+                        preview.setSurfaceProvider(previewView.getSurfaceProvider());
                         cameraProvider.unbindAll();
-                        cameraProvider.bindToLifecycle((LifecycleOwner)context,cameraSelector, preview,imageCapture);
+                        cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture);
                     } catch (ExecutionException e) {
                         throw new RuntimeException(e);
                     } catch (InterruptedException e) {
@@ -60,12 +60,12 @@ public class CameraManager {
                     }
 
                 }
-            },ContextCompat.getMainExecutor(context));
+            }, ContextCompat.getMainExecutor(context));
 
 
         } else {
             PermissionRequestCode = RequestPermissionCode;
-            requestPermissions(context);
+            requestPermissions(context, activity);
         }
     }
 
@@ -81,8 +81,8 @@ public class CameraManager {
     }
 
 
-    public void requestPermissions(Context context) {
-        ActivityCompat.requestPermissions((Activity) context, PERMISSIONS,PermissionRequestCode);
+    public void requestPermissions(Context context, Activity activity) {
+        ActivityCompat.requestPermissions((Activity) context, PERMISSIONS, PermissionRequestCode);
     }
 
 }

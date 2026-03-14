@@ -40,7 +40,7 @@ public class CameraActivity extends BaseActivity<BaseViewmodel, ActivityCameraBi
     public void initView() {
         manager = CameraManager.getInstance();
         previewView = mdataBinding.cameraPreviewView;
-        manager.startCamera(CameraActivity.this,RequestPermissionCode, previewView);
+        manager.startCamera(CameraActivity.this, CameraActivity.this, RequestPermissionCode, previewView, CameraActivity.this);
     }
 
     @Override
@@ -55,11 +55,10 @@ public class CameraActivity extends BaseActivity<BaseViewmodel, ActivityCameraBi
             return;
         }
 
-        if (manager.checkCameraPermissions(CameraActivity.this)){
-            manager.startCamera(CameraActivity.this,RequestPermissionCode,previewView); //获得权限重新启动相机
-        }
-        else {
-            Toast.makeText(CameraActivity.this,"未获得相机权限",Toast.LENGTH_SHORT);
+        if (manager.checkCameraPermissions(CameraActivity.this)) {
+            manager.startCamera(CameraActivity.this, CameraActivity.this, RequestPermissionCode, previewView, CameraActivity.this); //获得权限重新启动相机
+        } else {
+            Toast.makeText(CameraActivity.this, "未获得相机权限", Toast.LENGTH_SHORT);
             finish(); //关闭相机页面
         }
 

@@ -12,7 +12,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.featuremediaplay.BR;
 import com.featuremediaplay.R;
 import com.example.video_data.bean.ArchivesInfo;
-import com.example.video_data.bean.ResVideoAllInfo;
 import com.featuremediaplay.databinding.LayoutIntroductionBinding;
 import com.featuremediaplay.ui.commend.report.CommendPopWindow;
 import com.featuremediaplay.ui.mediaplay.MediaPlayViewModel;
@@ -26,6 +25,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
 
     private ArchivesInfo mArchivesInfo;
     private CommendPopWindow mPopWindow;
+    private VideoListFragment mVideoListFragment;
 
     public void updateHeight() {
         Handler handler = new Handler(Looper.getMainLooper());
@@ -55,13 +55,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
 
     @Override
     public void initView() {
-        //获取视频播放下方的视频列表
-        VideoListFragment videoListFragment = (VideoListFragment) ARouter.getInstance().build(ArouterPath.Video.FRAGMENT_VideoList)
-                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY,
-                        ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)
-                .withBoolean(ArouterPath.Video.VIDEO_STYLE_KEY, ArouterPath.Video.VIDEO_STYLE_WHITE)
-                .navigation();
-        getChildFragmentManager().beginTransaction().add(mDataBinding.mediaPlayFcv.getId(), videoListFragment).commit();
+        getVideoListFragment(); //获取视频列表Fragment
 
         mDataBinding.commend.setOnClickListener(v -> {
             if (mPopWindow == null) {
@@ -75,6 +69,23 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
             });
             mPopWindow.showPopupWindow(mDataBinding.getRoot());//关联到当前的根布局上
         });
+    }
+
+    private void getVideoListFragment() {
+        //获取视频播放下方的视频列表
+        mVideoListFragment = (VideoListFragment) ARouter.getInstance().build(ArouterPath.Video.FRAGMENT_VideoList)
+                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY,
+                        ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)
+                .withBoolean(ArouterPath.Video.VIDEO_STYLE_KEY, ArouterPath.Video.VIDEO_STYLE_WHITE)
+                .navigation();
+        getChildFragmentManager().beginTransaction().add(mDataBinding.mediaPlayFcv.getId(), mVideoListFragment).commit();
+    }
+
+    /**
+     * 每播放一个新的视频下方的视频列表进行一次刷新
+     */
+    public void refreshVideoListFragment(){
+       mVideoListFragment.refreshForExternalUse();
     }
 
     @Override

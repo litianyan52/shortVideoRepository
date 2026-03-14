@@ -88,6 +88,16 @@ public abstract class BaseListFragment<T> extends BaseFragment<BaseListViewmodel
         });
     }
 
+    /**
+     * 这个方法暴露给外部使用,比如每播放一个新的视频下方的视频列表要进行刷新
+     */
+    public void refreshForExternalUse(){
+        mIsFirst = true;
+//                loadData(isFirst, type)
+        //   loadMoreDatas(mIsFirst);
+        mViewmodel.requestListData(mIsFirst);
+        mViewmodel.getEnableLoadMore().setValue(true);
+    }
 
     public abstract BaseAdapter getAdapter();  //子类提供Recycler的适配器
 
