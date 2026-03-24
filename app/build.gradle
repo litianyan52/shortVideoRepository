@@ -21,10 +21,62 @@ android {
         }
     }
 
+
+    //重命名APK文件：将默认的app-debug.apk或app-release.apk等文件名
+//按照如下格式输出apk名称：  lsvideo-变体名称-版本号.apk
+//比如  lsvideo-release-2.0.apk
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "shortVideo-${variant.name}-${variant.versionName}.apk"
+        }
+    }
+
+
+    // 签名配置（建议将敏感信息放在 gradle.properties）
+    signingConfigs {
+        //debug一般指本地调试、测试
+        debug {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+        //release指的是正式的
+        release {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+
+        //在公司层面提起测试的时候用staging，但对于多数团队来说，debug就够了。如果比较讲究，也可以区分staging
+        staging  {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable false
+
+            minifyEnabled true   // 启用混淆
+            shrinkResources true // 移除无用资源文件（这个如果为true那么minifyEnabled也必须为true，否则会出错）
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'//指定模块根目录下的混淆文件
+        }
+        //指定debug测试环境关联的签名配置
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true//说明是测试
+        }
+
+        //指定staging测试环境关联的签名配置
+        staging {
+            signingConfig signingConfigs.staging
+            debuggable true//说明是测试
         }
     }
     compileOptions {
