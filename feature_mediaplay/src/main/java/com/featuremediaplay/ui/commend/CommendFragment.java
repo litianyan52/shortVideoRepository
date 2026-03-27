@@ -31,6 +31,7 @@ import java.util.List;
 public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutCommendBinding> {
     private static final String TAG = "CommendFragment";
     private CommentAdapter mAdapter;
+    private Handler mHandler;
 
     @Override
     public MediaPlayViewModel getViewModel() {
@@ -169,8 +170,8 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
      * 重新计算整个布局的高
      */
     public void updateHeight() {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
+        mHandler = new Handler(Looper.getMainLooper());
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mDataBinding.getRoot().requestLayout(); //等fragment渲染完成后重新计算和当前fragment相关布局的大小和位置
@@ -179,7 +180,15 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
 
     }
 
-//    @Override
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler = null;
+    }
+
+
+    //    @Override
 //    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //        super.onViewCreated(view, savedInstanceState);
 //

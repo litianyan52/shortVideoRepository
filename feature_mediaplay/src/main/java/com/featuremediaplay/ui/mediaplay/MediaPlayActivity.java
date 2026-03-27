@@ -42,6 +42,8 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     private IntroductionFragment mIntroductionFragment;
     @Autowired(name = ArouterPath.Video.KEY_VIDEO_ID)
     public int mVideoId;
+    private ViewPager2 mVideoViewPager;
+    private ViewPager2.OnPageChangeCallback mPageChangeCallback;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -101,7 +103,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
      */
     private void initViewPager() {
         Log.d("TAG", "initViewPager: " + UserManager.getInstance().getUserToken());
-        ViewPager2 videoViewPager = mdataBinding.videoViewPager;
+        mVideoViewPager = mdataBinding.videoViewPager;
         mCommendFragment = (CommendFragment) ARouter.getInstance().
                 build(ArouterPath.Video.VIDEO_LIST_FRAGMENT_COMMEND).
                 navigation();
@@ -111,7 +113,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(mIntroductionFragment);
         fragmentArrayList.add(mCommendFragment);
-        videoViewPager.setAdapter(new FragmentStateAdapter(this) {
+        mVideoViewPager.setAdapter(new FragmentStateAdapter(this) {
             //匿名内部类隐式持有fragmentArrayList,所以不会被销毁
             @NonNull
             @Override
@@ -124,7 +126,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
                 return fragmentArrayList == null ? 0 : fragmentArrayList.size();
             }
         });
-        videoViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -135,7 +137,8 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
 
                 }
             }
-        });
+        };
+        mVideoViewPager.registerOnPageChangeCallback(mPageChangeCallback);
     }
 
     @Override
@@ -170,6 +173,13 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         mInstance.playWhenReady(true);
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mInstance.playWhenReady(false);
+    }
+
     /**
      * 注销EventBus
      */
@@ -180,7 +190,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         {
             EventBus.getDefault().unregister(this);
         }
-        mInstance.playWhenReady(false);
+
     }
 
     @Override
@@ -191,11 +201,19 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         }
     }
 
+    /**
+     * 清理一些资源
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mInstance.destroy();
+        if (mVideoViewPager != null && mPageChangeCallback != null) {
+            mVideoViewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
+        }
 
+        mVideoViewPager = null;
+        mPageChangeCallback = null;
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)  //在主线程中处理,正好收到event时需要更新UI所以在主线程中更新正好

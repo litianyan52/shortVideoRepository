@@ -23,6 +23,8 @@ import java.util.ArrayList;
 @Route(path = ArouterPath.Home.FRAGMENT_HOME)
 public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragmentBinding> {
     private static final String TAG = "HomeFragment";
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback;
+    private ViewPager2 mViewPager2;
 
     @Override
     public HomeViewModel getViewModel() {
@@ -57,9 +59,9 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(commendFragment);
         fragments.add(dailyFragment);
-        ViewPager2 viewPager2 = mDataBinding.viewPager2;
-        viewPager2.setSaveEnabled(false);
-        viewPager2.setAdapter(new FragmentStateAdapter(this) {
+        mViewPager2 = mDataBinding.viewPager2;
+        mViewPager2.setSaveEnabled(false);
+        mViewPager2.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
@@ -73,7 +75,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
                 return fragments.size();
             }
         });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -99,15 +101,16 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
             }
-        });
+        };
+        mViewPager2.registerOnPageChangeCallback(mOnPageChangeCallback);
         mDataBinding.rdIndicator.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.recommend) {
-                    viewPager2.setCurrentItem(0);
+                    mViewPager2.setCurrentItem(0);
                 }
                 if (checkedId == R.id.daily) {
-                    viewPager2.setCurrentItem(1);
+                    mViewPager2.setCurrentItem(1);
                 }
             }
         });
@@ -125,5 +128,18 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
     public void initData() {
 
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mViewPager2 != null && mOnPageChangeCallback != null) {
+            mViewPager2.unregisterOnPageChangeCallback(mOnPageChangeCallback);
+        }
+
+        mViewPager2 = null;
+        mOnPageChangeCallback = null;
+    }
+
 }
 
