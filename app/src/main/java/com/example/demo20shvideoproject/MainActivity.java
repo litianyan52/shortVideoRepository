@@ -1,16 +1,9 @@
 package com.example.demo20shvideoproject;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.widget.RadioGroup;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
