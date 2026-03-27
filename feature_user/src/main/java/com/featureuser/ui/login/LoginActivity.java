@@ -128,4 +128,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
 
+    /**
+     * 清理ViewModel中的CountDownTimer匿名内部类
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewModel.clearInnerClass();
+    }
 }

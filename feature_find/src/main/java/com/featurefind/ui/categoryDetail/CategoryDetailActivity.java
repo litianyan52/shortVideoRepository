@@ -31,6 +31,8 @@ public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewModel
 
     @Autowired(name = ArouterPath.Find.KEY_CATEGORY_DETAIL_DATA)
     public Category mCategoryData;  //分类详情数据
+    private ViewPager2 mViewPager;
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback;
 
     @Override
     public CategoryDetailViewModel getViewModel() {
@@ -68,9 +70,9 @@ public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewModel
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(hotcommendFragment);
         fragments.add(newPublishFragment);
-        ViewPager2 viewPager = mdataBinding.viewPager;
-        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        viewPager.setAdapter(new FragmentStateAdapter(this) {
+        mViewPager = mdataBinding.viewPager;
+        mViewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        mViewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
@@ -82,7 +84,7 @@ public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewModel
                 return fragments == null ? 0 : fragments.size();
             }
         });
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -98,19 +100,20 @@ public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewModel
                     mdataBinding.newPublishLine.setBackgroundColor(getColor(R.color.black));
                 }
             }
-        });
+        };
+        mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
 
         mdataBinding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.hot_recommend) {
-                    viewPager.setCurrentItem(0);
+                    mViewPager.setCurrentItem(0);
                     mdataBinding.hotRecommendLine.setBackgroundColor(getColor(R.color.black));
                     mdataBinding.newPublishLine.setBackgroundColor(getColor(R.color.grey));
                 }
 
                 if (checkedId == R.id.new_publish) {
-                    viewPager.setCurrentItem(1);
+                    mViewPager.setCurrentItem(1);
                     mdataBinding.hotRecommendLine.setBackgroundColor(getColor(R.color.grey));
                     mdataBinding.newPublishLine.setBackgroundColor(getColor(R.color.black));
                 }
@@ -123,5 +126,18 @@ public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewModel
     public void initData() {
         mViewModel.LoadData(mCategoryData);
         mViewModel.getCategoryDetailOne(String.valueOf(mCategoryData.getId()));
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mViewPager != null && mOnPageChangeCallback != null) {
+            mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
+        }
+
+        mViewPager = null;
+        mOnPageChangeCallback = null;
     }
 }

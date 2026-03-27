@@ -123,5 +123,25 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
         mHandler = null;
+        dismissPopWindow();
+
+    }
+
+
+    /**
+     * 安全关闭弹窗
+     */
+    private void dismissPopWindow() {
+        if (mPopWindow != null) {
+            try {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                mPopWindow = null;
+            }
+        }
     }
 }

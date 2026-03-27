@@ -101,6 +101,8 @@ public class CommendPopWindow extends PopupWindow {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
 
+
+
     /**
      * 输入框信息回调接口
      */

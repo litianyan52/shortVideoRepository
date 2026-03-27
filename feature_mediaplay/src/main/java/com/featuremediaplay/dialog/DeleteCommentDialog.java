@@ -13,11 +13,14 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.featuremediaplay.databinding.LayoutDeleteCommentDialogBinding;
 
+import java.lang.ref.WeakReference;
+
 public class DeleteCommentDialog extends DialogFragment {
-    private IDeleteCommentDialog mCallBack;
+    private WeakReference<IDeleteCommentDialog> mWeakCallback; //弱引用持有,防止不能销毁Activity
+
 
     public DeleteCommentDialog(IDeleteCommentDialog mCallBack) {
-        this.mCallBack = mCallBack;
+        this.mWeakCallback = new WeakReference<>(mCallBack);
     }
 
     public static DeleteCommentDialog newInstance(IDeleteCommentDialog callback) {
@@ -38,8 +41,11 @@ public class DeleteCommentDialog extends DialogFragment {
         binding.deCmd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallBack.confirmDelete();  //进行回调然后关闭
-                dismiss();
+                if (mWeakCallback.get()!=null)
+                {
+                    mWeakCallback.get().confirmDelete();  //进行回调然后关闭
+                    dismiss();
+                }
             }
         });
         builder.setView(binding.getRoot());

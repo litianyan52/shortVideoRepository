@@ -15,9 +15,12 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.libase.databinding.LayoutDialogYseOrNoBinding;
 
+import java.lang.ref.WeakReference;
+
 public class YesOrNoDialog extends DialogFragment {
 
-    private final DialogCallBack mCallBack;
+    private final WeakReference<DialogCallBack> mWeakCallBack; //弱引用持有回调,
+
     public static void showDialog(FragmentActivity activity, String title, String content, DialogCallBack callBack)
     {
         YesOrNoDialog dialog = newInstance(title, content, callBack);
@@ -36,7 +39,7 @@ public class YesOrNoDialog extends DialogFragment {
     }
 
     public YesOrNoDialog(DialogCallBack callBack) {
-        mCallBack = callBack;
+        mWeakCallBack = new WeakReference<>(callBack);
     }
 
     @NonNull
@@ -53,8 +56,10 @@ public class YesOrNoDialog extends DialogFragment {
         binding.dialogTitle.setText(title);  //设置弹窗标题
         binding.dialogContent.setText(content); //设置内容
         binding.dialogConfirm.setOnClickListener(v -> {
-            mCallBack.confirm();  //回调通知Activity然后关闭
-            dismiss();
+            if (mWeakCallBack.get()!=null){
+                mWeakCallBack.get().confirm();  //回调通知Activity然后关闭
+                dismiss();
+            }
         });
         binding.dialogCancel.setOnClickListener(v ->
         {

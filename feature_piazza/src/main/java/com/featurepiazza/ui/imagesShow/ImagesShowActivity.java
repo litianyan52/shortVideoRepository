@@ -28,6 +28,8 @@ public class ImagesShowActivity extends BaseActivity<ImagesShowViewModel, Activi
     @Autowired(name = ArouterPath.Piazza.KEY_ACTIVITY_IMAGES_SHOW_DATA)
     public ResPiazza.ResPiazzaDetail mResPiazzaDetail;  //图片浏览的数据
     private ArrayList<ItemViewPagerFragment> mList;
+    private ViewPager2 mViewPager;
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback;
 
     @Override
     public ImagesShowViewModel getViewModel() {
@@ -76,8 +78,8 @@ public class ImagesShowActivity extends BaseActivity<ImagesShowViewModel, Activi
                     .navigation();
             mList.add(itemViewPagerFragment);
         }
-
-        mdataBinding.viewPager.setAdapter(new FragmentStateAdapter(this) {
+        mViewPager = mdataBinding.viewPager;
+        mViewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
@@ -89,18 +91,31 @@ public class ImagesShowActivity extends BaseActivity<ImagesShowViewModel, Activi
                 return mList == null ? 0 : mList.size();
             }
         });
-        mdataBinding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 mdataBinding.imageIndex.setText(position + 1 + "/" + mResPiazzaDetail.getImages().size());
             }
-        });
+        };
+        mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
 
     }
 
     @Override
     public void initData() {
         mViewModel.LoadData(mResPiazzaDetail);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mViewPager != null && mOnPageChangeCallback != null) {
+            mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
+        }
+
+        mViewPager = null;
+        mOnPageChangeCallback = null;
     }
 }

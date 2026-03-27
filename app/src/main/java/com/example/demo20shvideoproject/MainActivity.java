@@ -41,11 +41,11 @@ public class MainActivity extends BaseActivity<MainViewmodel, ActivityMainBindin
     @Override
     public void initView() {
         Log.d(TAG, "initView: ");
-        Fragment homeFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Home.FRAGMENT_HOME).navigation();
-        Fragment userFragment = (Fragment) ARouter.getInstance().build(ArouterPath.User.FRAGMENT_USER).navigation();
-        Fragment piazzaFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Piazza.FRAGMENT_PIAZZA).navigation();
-        Fragment findFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Find.FRAGMENT_FIND).navigation();
-        Log.d(TAG, "initView: " + homeFragment);
+
+
+
+
+       // Log.d(TAG, "initView: " + homeFragment);
 
 //        Object navigation = ARouter.getInstance().build("/user/login").navigation();
 //        Log.d(TAG, "initView: " + navigation);
@@ -53,12 +53,16 @@ public class MainActivity extends BaseActivity<MainViewmodel, ActivityMainBindin
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.home) {
+                    Fragment homeFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Home.FRAGMENT_HOME).navigation();
                     replaceFragment(homeFragment);
                 } else if (checkedId == R.id.find) {
+                    Fragment findFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Find.FRAGMENT_FIND).navigation();
                     replaceFragment(findFragment);
                 } else if (checkedId == R.id.piazza) {
+                    Fragment piazzaFragment = (Fragment) ARouter.getInstance().build(ArouterPath.Piazza.FRAGMENT_PIAZZA).navigation();
                     replaceFragment(piazzaFragment);
                 } else if (checkedId == R.id.user) {
+                    Fragment userFragment = (Fragment) ARouter.getInstance().build(ArouterPath.User.FRAGMENT_USER).navigation();
                     replaceFragment(userFragment);
                 }
             }

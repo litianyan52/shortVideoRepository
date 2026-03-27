@@ -161,10 +161,20 @@ public class LoginViewModel extends BaseViewmodel {
                 public void onFinish() {
                     mCodeText.setValue("获取验证码");
                     enableSendCode.setValue(true);
+//                    mCountDownTimer.cancel();  //这个匿名内部类持有外部ViewModel,要及时移除
+//                    mCountDownTimer = null;
                 }
             }.start();
         } else {
             showToastText("号码格式错误");
+        }
+    }
+
+
+    public void clearInnerClass(){
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+            mCountDownTimer = null;
         }
     }
 }
