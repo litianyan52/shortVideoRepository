@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 public class UserManager {
-    private static UserManager instance;
+    private volatile static UserManager instance;
     private SharedPreferences mSP;
     private static final String SP_NAME = "userSP";
     private static final String KEY_TOKEN = "user_token_key";

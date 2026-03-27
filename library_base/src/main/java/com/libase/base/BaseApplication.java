@@ -7,6 +7,7 @@ import android.util.Log;
 import com.alibaba.android.arouter.BuildConfig;
 import com.alibaba.android.arouter.launcher.ARouter;
 
+
 import me.jessyan.autosize.AutoSizeConfig;
 
 public class BaseApplication extends Application {

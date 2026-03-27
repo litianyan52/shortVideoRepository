@@ -119,5 +119,7 @@ dependencies {
         implementation project(":feature_mediaplay")
         implementation project(":feature_camera")
 
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+
     }
 }

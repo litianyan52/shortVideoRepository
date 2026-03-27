@@ -3,6 +3,8 @@ package com.featurehome;
 import android.util.Log;
 import android.widget.RadioGroup;
 
+import android.widget.RadioGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -56,7 +58,8 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
         fragments.add(commendFragment);
         fragments.add(dailyFragment);
         ViewPager2 viewPager2 = mDataBinding.viewPager2;
-        viewPager2.setAdapter(new FragmentStateAdapter(getActivity()) {
+        viewPager2.setSaveEnabled(false);
+        viewPager2.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {

@@ -79,3 +79,20 @@
 
 # 保留通过反射调用的类和方法
 -keep class com.example.demo20shvideoproject.** { *; }  # 替换为你的主包名
+
+
+
+
+
+
+-keep class com.tencent.mm.opensdk.** {
+    *;
+}
+
+-keep class com.tencent.wxop.** {
+    *;
+}
+
+-keep class com.tencent.mm.sdk.** {
+    *;
+}
