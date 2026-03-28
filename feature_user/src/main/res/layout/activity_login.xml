@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.featureuser.ui.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5E5E5"
+       >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:src="@mipmap/icon_login_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/login_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:onClick="@{()->viewmodel.finishPage()}"
+            android:src="@mipmap/icon_arrow_wh_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/setting_in_login"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="14dp"
+            android:src="@mipmap/icon_setting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/qualification_in_login"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:src="@mipmap/icon_qulification"
+            app:layout_constraintEnd_toStartOf="@id/setting_in_login"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="136.47dp"
+            android:layout_height="15.14dp"
+            android:layout_marginTop="127.5dp"
+            android:src="@mipmap/icon_logo_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:background="#FFFFFF "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            xmlns:tools="http://schemas.android.com/tools">
+
+            <TextView
+                android:id="@+id/text_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="27.5dp"
+                android:text="用户账号"
+                android:textColor="#ff000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="52dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="36.5dp"
+                android:layout_marginTop="3.5dp"
+                android:background="#9C9C9C"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_user" />
+
+            <EditText
+                android:id="@+id/input_phone_num"
+                android:layout_width="268dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36.5dp"
+                android:layout_marginTop="54.5dp"
+                android:background="@null"
+                android:hint="输入手机号登录/注册"
+                android:text="@={viewmodel.mPhone}"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_user" />
+
+            <View
+                android:id="@+id/phone_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8.5dp"
+                android:background="#BBBBBB"
+                app:layout_constraintEnd_toEndOf="@id/input_phone_num"
+                app:layout_constraintStart_toStartOf="@id/input_phone_num"
+                app:layout_constraintTop_toBottomOf="@id/input_phone_num" />
+
+            <EditText
+                android:id="@+id/input_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42.5dp"
+                android:background="@null"
+                android:hint="输入验证码"
+                android:maxLength="4"
+                android:inputType="number"
+                android:text="@={viewmodel.mCode}"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="@id/input_phone_num"
+                app:layout_constraintStart_toStartOf="@id/input_phone_num"
+                app:layout_constraintTop_toBottomOf="@id/phone_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_verification_code"
+                android:gravity="center"
+                android:onClick="@{()->viewmodel.TimeCount()}"
+                android:text="@{viewmodel.codeText}"
+                android:enabled="@{viewmodel.enableSendCode}"
+                android:textColor="#ff9c9c9c"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/input_code"
+                app:layout_constraintEnd_toEndOf="@id/input_phone_num"
+                app:layout_constraintTop_toTopOf="@+id/input_code" />
+
+            <View
+                android:id="@+id/code_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8.5dp"
+                android:background="#BBBBBB"
+                app:layout_constraintEnd_toEndOf="@id/input_code"
+                app:layout_constraintStart_toStartOf="@id/input_code"
+                app:layout_constraintTop_toBottomOf="@id/input_code" />
+
+            <ImageView
+                android:id="@+id/wx_login"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/icon_wx_login"
+                app:layout_constraintEnd_toStartOf="@id/qq_login"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/code_line" />
+
+            <ImageView
+                android:id="@+id/qq_login"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/icon_qq_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/wx_login"
+                app:layout_constraintTop_toBottomOf="@id/code_line" />
+
+            <TextView
+                android:id="@+id/sign_up_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56.5dp"
+                android:text="新手机号将自动注册"
+                android:textColor="#ffbbbbbb"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qq_login" />
+
+            <CheckBox
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/status_accept"
+                android:button="@null"
+                android:checked="@={viewmodel.isAccept}"
+                app:layout_constraintBottom_toBottomOf="@id/private_text"
+                app:layout_constraintEnd_toStartOf="@id/private_text"
+                app:layout_constraintTop_toTopOf="@id/private_text" />
+
+            <TextView
+                android:id="@+id/private_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="9dp"
+                android:text="请阅读并同意《用户协议》和《隐私政策》"
+                android:textColor="#ff000000"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_tip" />
+
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/status_login_btn"
+                android:enabled="@{viewmodel.isEnableLogin}"
+                android:gravity="center"
+                android:text="登录"
+                android:onClick="@{()->viewmodel.LoginByMobile()}"
+                android:textColor="#ffffffff"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/private_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

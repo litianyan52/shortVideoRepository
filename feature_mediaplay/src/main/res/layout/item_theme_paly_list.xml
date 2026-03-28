@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Data"
+            type="com.example.video_data.bean.themPlayListBean.ResThemePlayList" />
+
+        <variable
+            name="tag1"
+            type="String" />
+
+        <variable
+            name="tag2"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8F8F8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/subLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="7dp"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
+
+            <TextView
+                android:id="@+id/theme_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="16dp"
+                android:text="@{Data.title}"
+                android:textColor="#ff000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="被广告当猴耍，是人生最棒的…" />
+
+            <View
+                android:id="@+id/theme_thin_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="#F8F8F8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/theme_title" />
+
+
+            <TextView
+                android:id="@+id/theme_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="18.5dp"
+                android:layout_marginEnd="7dp"
+                android:text="@{Data.desc}"
+                android:textColor="#ff000000"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/theme_thin_line"
+                tools:text="从惊吓到惊喜，只需要一条广告的时间。开眼为您精选了6 支「神反转」广告，套中带套，把你当「猴」耍!" />
+
+
+            <View
+                android:id="@+id/entry1_br"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="7dp"
+
+                android:background="@drawable/theme_rectangle_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/theme_description" />
+
+            <ImageView
+                android:id="@+id/entry1_picture"
+                ImageUri="@{Data.lists.get(0).cover}"
+                android:layout_width="160dp"
+                android:layout_height="104dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="@id/entry1_br"
+                app:layout_constraintTop_toTopOf="@id/entry1_br"
+                tools:src="@mipmap/theme_play_picture" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_play"
+                app:layout_constraintBottom_toBottomOf="@id/entry1_picture"
+                app:layout_constraintEnd_toEndOf="@id/entry1_picture"
+                app:layout_constraintStart_toStartOf="@id/entry1_picture"
+                app:layout_constraintTop_toTopOf="@id/entry1_picture" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="14dp"
+                android:text="@{Data.lists.get(0).title}"
+                android:textColor="#ff000000"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/entry1_br"
+                app:layout_constraintStart_toEndOf="@id/entry1_picture"
+                app:layout_constraintTop_toTopOf="@id/entry1_picture"
+                tools:text="反转公益广告:妙龄少女的失踪悬案" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="@{tag1}"
+                android:textColor="#ff000000"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/entry1_br"
+                app:layout_constraintStart_toEndOf="@id/entry1_picture"
+                tools:text="#广告" />
+
+            <TextView
+                android:layout_width="36dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="16.5dp"
+                android:layout_marginBottom="11.5dp"
+                android:background="@drawable/theme_duration_bg"
+                android:gravity="center"
+                android:text="@{Data.lists.get(0).duration}"
+                android:textColor="#ff444444"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/entry1_br"
+                app:layout_constraintEnd_toEndOf="@id/entry1_br"
+                tools:text="12:49" />
+
+
+            <View
+                android:id="@+id/entry2_br"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/theme_rectangle_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/entry1_br" />
+
+
+            <ImageView
+                android:id="@+id/entry2_picture"
+                ImageUri="@{Data.lists.get(1).cover}"
+                android:layout_width="160dp"
+                android:layout_height="104dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="@id/entry2_br"
+                app:layout_constraintTop_toTopOf="@id/entry2_br"
+                tools:src="@mipmap/theme_play_picture" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_play"
+                app:layout_constraintBottom_toBottomOf="@id/entry2_picture"
+                app:layout_constraintEnd_toEndOf="@id/entry2_picture"
+                app:layout_constraintStart_toStartOf="@id/entry2_picture"
+                app:layout_constraintTop_toTopOf="@id/entry2_picture" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="14dp"
+                android:text="@{Data.lists.get(1).title}"
+                android:textColor="#ff000000"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/entry2_br"
+                app:layout_constraintStart_toEndOf="@id/entry2_picture"
+                app:layout_constraintTop_toTopOf="@id/entry2_picture"
+                tools:text="反转公益广告:妙龄少女的失踪悬案" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="@{tag2}"
+                android:textColor="#ff000000"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/entry2_br"
+                app:layout_constraintStart_toEndOf="@id/entry2_picture"
+                tools:text="#广告" />
+
+            <TextView
+                android:layout_width="36dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="16.5dp"
+                android:layout_marginBottom="11.5dp"
+                android:background="@drawable/theme_duration_bg"
+                android:gravity="center"
+                android:text="@{Data.lists.get(1).duration}"
+                android:textColor="#ff444444"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/entry2_br"
+                app:layout_constraintEnd_toEndOf="@id/entry2_br"
+                tools:text="12:49" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

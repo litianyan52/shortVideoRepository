@@ -1,0 +1,33 @@
+apply from: '../featureConfig.build.gradle'
+android {
+    namespace 'com.featuremediaplay'
+    defaultConfig
+            {
+                if (rootProject.ext.isModule) {
+                    applicationId "com.featuremediaplay"
+                }
+            }
+
+
+
+}
+
+dependencies {
+
+//    implementation libs.appcompat
+//    implementation libs.material
+    implementation libs.media3.exoplayer
+    implementation libs.media3.ui
+    implementation libs.flowHelper  //刷新头
+    annotationProcessor libs.arouterCompiler
+
+
+
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+
+    implementation project(":library_base")
+    implementation project(":video_data")
+}

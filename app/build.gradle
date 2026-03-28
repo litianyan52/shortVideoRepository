@@ -1,0 +1,125 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.example.demo20shvideoproject'
+    compileSdk rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.example.demo20shvideoproject"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+
+    //重命名APK文件：将默认的app-debug.apk或app-release.apk等文件名
+//按照如下格式输出apk名称：  lsvideo-变体名称-版本号.apk
+//比如  lsvideo-release-2.0.apk
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "shortVideo-${variant.name}-${variant.versionName}.apk"
+        }
+    }
+
+
+    // 签名配置（建议将敏感信息放在 gradle.properties）
+    signingConfigs {
+        //debug一般指本地调试、测试
+        debug {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+        //release指的是正式的
+        release {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+
+        //在公司层面提起测试的时候用staging，但对于多数团队来说，debug就够了。如果比较讲究，也可以区分staging
+        staging  {
+            storeFile file("../baiye.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "shortVideo"
+            keyPassword KEY_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+
+            minifyEnabled true   // 启用混淆
+            shrinkResources true // 移除无用资源文件（这个如果为true那么minifyEnabled也必须为true，否则会出错）
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'//指定模块根目录下的混淆文件
+        }
+        //指定debug测试环境关联的签名配置
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true//说明是测试
+        }
+
+        //指定staging测试环境关联的签名配置
+        staging {
+            signingConfig signingConfigs.staging
+            debuggable true//说明是测试
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    dataBinding
+            {
+                enable true
+            }
+}
+
+dependencies {
+//    implementation libs.appcompat
+//    implementation libs.material
+//    implementation libs.activity
+//    implementation libs.constraintlayout
+
+//    // 添加ARouter API依赖
+//    implementation libs.arouter
+    annotationProcessor libs.arouterCompiler
+    
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    if(rootProject.ext.isModule)
+    {
+        implementation project(":library_base")
+
+    }
+    else
+    {
+        //整体app打包要全部继承,各模块独立时就不用,防止出现重复依赖
+        implementation project(":feature_find")
+        implementation project(":feature_home")
+        implementation project(":feature_piazza")
+        implementation project(":feature_user")
+        implementation project(":library_base")
+        implementation project(":feature_mediaplay")
+        implementation project(":feature_camera")
+
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+
+    }
+}

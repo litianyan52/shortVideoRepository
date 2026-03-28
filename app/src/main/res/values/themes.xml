@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Demo20ShVideoProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Demo20ShVideoProject" parent="Base.Theme.Demo20ShVideoProject" />
+    <style name="mainBottomRadioButton">
+        <item  name="android:button">@null</item>
+        <item  name="android:gravity">center</item>
+        <item  name="android:paddingTop">10dp</item>
+        <item  name="android:textColor">@drawable/radio_btn_textcolor</item>
+    </style>
+
+</resources>

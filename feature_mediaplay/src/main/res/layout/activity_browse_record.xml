@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.featuremediaplay.ui.browseRecord.BrowseRecordViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.featuremediaplay.ui.browseRecord.BrowseRecordActivity">
+
+        <ImageView
+            android:id="@+id/browse_record_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:src="@mipmap/icon_arrow_bl_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/browse_record_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="浏览记录"
+            android:textColor="#ff9c9c9c"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/browse_record_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/browse_record_back" />
+
+        <TextView
+            android:id="@+id/browse_record_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:text="编辑"
+            android:textColor="#ff000000"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/browse_record_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/browse_record_title" />
+
+        <View
+            android:id="@+id/browse_record_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="13.5dp"
+            android:background="#1a000000"
+            app:layout_constraintTop_toBottomOf="@id/browse_record_title" />/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/browse_record_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/browse_record_line" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

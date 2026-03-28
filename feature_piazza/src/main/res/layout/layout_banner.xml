@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+    <variable
+        name="Data"
+        type="com.featurepiazza.bean.ResPiazza.ResPiazzaDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.stx.xhb.androidx.XBanner
+            android:id="@+id/xbanner"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            app:AutoPlayTime="3000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pageChangeDuration="800"
+            app:pointsVisibility="false"
+            app:tipTextSize="12sp"
+            app:viewpagerMargin="2dp" />
+
+        <TextView
+            android:id="@+id/know_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text="了解详情"
+            android:textColor="#ff000000"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/arrow" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:src="@mipmap/icon_arrow"
+            app:layout_constraintStart_toEndOf="@id/know_more"
+            app:layout_constraintTop_toBottomOf="@id/xbanner" />
+
+        <TextView
+            android:id="@+id/banner_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/bg_xbanner_indicator"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#ff000000"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/arrow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="#33000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/arrow" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

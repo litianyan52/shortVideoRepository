@@ -1,0 +1,29 @@
+apply from: '../featureConfig.build.gradle'
+android {
+    namespace 'com.featurehome'
+    defaultConfig
+            {
+                if (rootProject.ext.isModule) {
+                    applicationId "com.featurehome"
+                }
+
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments = [AROUTER_MODULE_NAME: project.getName()]
+                    }
+                }
+            }
+}
+
+
+
+dependencies {
+
+//    implementation libs.appcompat
+//    implementation libs.material
+    annotationProcessor libs.arouterCompiler
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    implementation project(":library_base")
+}
