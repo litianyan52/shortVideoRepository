@@ -3,6 +3,7 @@ package com.featuremediaplay.ui.mediaplay;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -153,6 +154,17 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
                 mViewModel.getCommentList(true);  //点击下一个视频后重新请求评论列表
             }
         });
+
+        /**
+         * 专门显示点赞收藏的弹窗,解决点赞收藏多次触发弹窗的问题
+         */
+        mViewModel.getToastForLikeCollect().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(MediaPlayActivity.this,s,Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //进入这个activity时就加载评论数据
 //    mViewModel.getResVideoAllInfo().observe(this, new Observer<ResVideoAllInfo>() {
 //        @Override

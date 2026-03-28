@@ -50,6 +50,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
     //是否允许继续加载评论列表,设置为true确保第一次能够加载
     private MutableLiveData<Boolean> isEnableLoadMore = new MutableLiveData<>(true);  //默认允许下拉加载
 
+    private MutableLiveData<String> mToastForLikeCollect = new MutableLiveData<>();  //用于触发点赞收藏的弹窗
 
 
     public MutableLiveData<ArchivesInfo> getArchivesInfo() {
@@ -121,6 +122,18 @@ public class MediaPlayViewModel extends BaseViewmodel {
         return mAuthorAvatar;
     }
 
+    public MutableLiveData<String> getToastForLikeCollect() {
+        return mToastForLikeCollect;
+    }
+
+    /**
+     * 专门用于显示点赞收藏的弹窗触发,解决多次弹窗的问题
+     * @param text
+     */
+    public void showLikeCollectToast(String text){
+        mToastForLikeCollect.setValue(text);
+    }
+
     /**
      * 获取视频相关的数据
      *
@@ -180,7 +193,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
     public void onLikeClick() {
         if (!mModel.isLogin())  //判断是否登录
         {
-            showToastText("请先登录");
+            showLikeCollectToast("请先登录");
+            //showToastText("请先登录");
             return;
         }
         if (mIsLike.getValue() == 1)  //说明已经点赞,发起取消点赞
@@ -188,7 +202,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
             mModel.cancelLike(String.valueOf(mArchivesInfo.getValue().getId()), new IRequestCallBack<ResBase<Object>>() {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
-                    showToastText(result.getMsg());
+                   // showToastText(result.getMsg());
+                    showLikeCollectToast(result.getMsg());
                     Log.d("TAG", "RequestSuccess: " + result.getMsg());
                     mIsLike.setValue(0); //取消点赞成功,同步一下本地数据
                     int value = Integer.valueOf(mLikes.getValue());
@@ -198,14 +213,16 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
-                    showToastText(errorMsg);
+                  //  showToastText(errorMsg);
+                    showLikeCollectToast(errorMsg);
                 }
             });
         } else if (mIsLike.getValue() == 0) {
             mModel.requestLike(String.valueOf(mArchivesInfo.getValue().getId()), "like", new IRequestCallBack<ResLike>() {
                 @Override
                 public void RequestSuccess(ResLike result) {
-                    showToastText(result.getMsg());
+                    showLikeCollectToast(result.getMsg());
+                   // showToastText(result.getMsg());
                     mIsLike.setValue(1); //点赞成功,同步一下本地数据
                     int value = Integer.valueOf(mLikes.getValue());
                     mLikes.setValue(String.valueOf(++value));
@@ -214,7 +231,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
-                    showToastText(errorMsg);
+                    //showToastText(errorMsg);
+                    showLikeCollectToast(errorMsg);
                 }
             });
         }
@@ -226,7 +244,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
      */
     public void onClickCollect() {
         if (!mModel.isLogin()) {
-            showToastText("请先登录");
+            //showToastText("请先登录");
+            showLikeCollectToast("请先登录");
             return;
         }
 
@@ -235,7 +254,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
             mModel.cancelCollection(String.valueOf(mArchivesInfo.getValue().getId()), new IRequestCallBack<ResBase<Object>>() {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
-                    showToastText(result.getMsg());
+                    //showToastText(result.getMsg());
+                    showLikeCollectToast(result.getMsg());
                     mIsCollection.setValue(0);  //取消收藏成功
                     Integer value = Integer.valueOf(mCollections.getValue());
                     mCollections.setValue(String.valueOf(--value));
@@ -246,14 +266,16 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
-                    showToastText(errorMsg);
+                   // showToastText(errorMsg);
+                    showLikeCollectToast(errorMsg);
                 }
             });
         } else if (mIsCollection.getValue() == 0) {   //未收藏,要发起收藏
             mModel.addCollection("archives", String.valueOf(mArchivesInfo.getValue().getId()), new IRequestCallBack<ResBase<Object>>() {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
-                    showToastText(result.getMsg());
+                    showLikeCollectToast(result.getMsg());
+                   // showToastText(result.getMsg());
                     mIsCollection.setValue(1);  //收藏成功
                     Integer value = Integer.valueOf(mCollections.getValue());
                     mCollections.setValue(String.valueOf(++value));
@@ -262,7 +284,8 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
-                    showToastText(errorMsg);
+                    //showToastText(errorMsg);
+                    showLikeCollectToast(errorMsg);
                 }
             });
         }
