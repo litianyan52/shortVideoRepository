@@ -2,10 +2,12 @@ package com.featuremediaplay.api;
 
 import com.example.video_data.bean.CancelBody;
 import com.example.video_data.bean.CollectionAddBody;
+import com.example.video_data.bean.CollectionItem;
 import com.example.video_data.bean.CommentBody;
 import com.example.video_data.bean.DeleteCmdBody;
 import com.example.video_data.bean.LikeAddBody;
 import com.example.video_data.bean.ResAddComment;
+import com.example.video_data.bean.ResCollection;
 import com.example.video_data.bean.ResComment;
 import com.example.video_data.bean.ResLike;
 import com.example.video_data.bean.ResVideo;
@@ -80,7 +82,8 @@ public interface MediaApiService {
         //搜索
     Call<ResBase<List<ResThemePlayList>>> getThemeListResult();
 
-
+    @GET(NetAddress.COLLECTION_LIST)
+        //获取收藏列表
+    Call<ResBase<ResCollection>> getCollectionList(@Header("token") String token, @Query("page") int page);
 
 }
-

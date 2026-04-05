@@ -17,5 +17,6 @@ public class NetAddress {
 
     public final static String GET_THEME_LIST = "addons/cms/api.eye/anchor";
 
+    public final static String COLLECTION_LIST = "addons/cms/api.collection/index";
 
 }

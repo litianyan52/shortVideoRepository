@@ -42,7 +42,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     private CommendFragment mCommendFragment;
     private IntroductionFragment mIntroductionFragment;
     @Autowired(name = ArouterPath.Video.KEY_VIDEO_ID)
-    public int mVideoId;
+    public int mVideoId;   //要播放的视频id
     private ViewPager2 mVideoViewPager;
     private ViewPager2.OnPageChangeCallback mPageChangeCallback;
 

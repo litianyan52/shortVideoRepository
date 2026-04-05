@@ -11,7 +11,7 @@
 
         <variable
             name="Data"
-            type="com.libase.db.UserLookRecord" />
+            type="com.example.video_data.bean.CollectionItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/item_collect_video_cover"
-            ImageUri="@{Data.cover}"
+            ImageUri="@{Data.image}"
             android:layout_width="160dp"
             android:layout_height="92dp"
             android:layout_marginStart="14dp"

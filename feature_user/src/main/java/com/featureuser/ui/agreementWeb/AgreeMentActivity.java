@@ -1,5 +1,7 @@
 package com.featureuser.ui.agreementWeb;
 
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -24,7 +26,8 @@ public class AgreeMentActivity extends BaseActivity<BaseViewmodel, ActivityWebvi
     private final String PRI_AGREEMENT_URL = BASE_URL + "/agreement.html";  //隐私协议及概要
     private final String USER_AGREEMENT_URL = BASE_URL + "/UserAgreement.html";//用户协议
     private final String USER_INFO_URL = BASE_URL + "/userinfomenus.html";//用户个人信息收集清单
-    private  String DESTINATION_URL;
+    private String DESTINATION_URL;
+    private WebView webView;
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,7 @@ public class AgreeMentActivity extends BaseActivity<BaseViewmodel, ActivityWebvi
 
     @Override
     public void initData() {
-        switch (mAgreementType)
-        {
+        switch (mAgreementType) {
             case UserConfig.AgreementType.USER_AGREEMENT:
                 mdataBinding.agreementTitle.setText("用户协议");
                 DESTINATION_URL = USER_AGREEMENT_URL;
@@ -77,7 +79,8 @@ public class AgreeMentActivity extends BaseActivity<BaseViewmodel, ActivityWebvi
                 break;
         }
         mViewModel.showLoading(true);
-        mdataBinding.webView.loadUrl(DESTINATION_URL);
+        webView = mdataBinding.webView;
+        webView.loadUrl(DESTINATION_URL);
         mdataBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -85,5 +88,33 @@ public class AgreeMentActivity extends BaseActivity<BaseViewmodel, ActivityWebvi
                 mViewModel.showLoading(false);  //加载完取消ProgressBar
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+
+
+        if (webView != null) {
+          //  webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            webView.removeAllViews();
+            ViewGroup parent = (ViewGroup)webView.getParent();
+            if (parent!=null) {
+                parent.removeView(webView);
+            }
+
+            // 3. 停止加载
+            webView.stopLoading();
+
+            // 4. 暂停并清空
+            webView.onPause();
+
+            webView.clearHistory();
+            webView.clearCache(true);
+            webView.setWebViewClient(null);
+            webView.destroy();
+            webView = null;
+        }
+
+        super.onDestroy();
     }
 }

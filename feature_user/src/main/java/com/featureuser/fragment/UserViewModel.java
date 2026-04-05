@@ -95,6 +95,7 @@ public class UserViewModel extends BaseViewmodel {
             });
         } else {
             unLoginUpDateToUI();  //调用未登录时返回空的数据回去
+            isVisible.setValue(mModel.isLogin() ? View.VISIBLE : View.GONE);//退出登录会调用到这里,得更新一下退出登录按钮的显示状态
         }
     }
 

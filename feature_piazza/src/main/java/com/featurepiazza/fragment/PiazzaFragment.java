@@ -77,7 +77,7 @@ public class PiazzaFragment extends BaseFragment<PiazzaViewmodel, LayoutPiazzaFr
                 ARouter.getInstance().build(ArouterPath.Piazza.ACTIVITY_IMAGES_SHOW)
                         .withParcelable(ArouterPath.Piazza.KEY_ACTIVITY_IMAGES_SHOW_DATA,resPiazzaDetail)
                         .navigation();  //跳转到图片浏览的页面
-              getActivity().overridePendingTransition(R.anim.picture_activity_in,0);
+              getActivity().overridePendingTransition(R.anim.picture_activity_in,0);//进入动画
             }
         });
         mDataBinding.piaSmartRe.listRecyclerview.setAdapter(mAdapter);
