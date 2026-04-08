@@ -57,11 +57,14 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
     @Override
     public void initView() {
         getVideoListFragment(); //获取视频列表Fragment
-
+        /**
+         * 评论按钮点击
+         */
         mDataBinding.commend.setOnClickListener(v -> {
             if (mPopWindow == null) {
                 mPopWindow = new CommendPopWindow((AppCompatActivity) getActivity());
             }
+
             mPopWindow.setCallback(new CommendPopWindow.IEditTextCallback() {
                 @Override
                 public void sendMsg(String msg) {

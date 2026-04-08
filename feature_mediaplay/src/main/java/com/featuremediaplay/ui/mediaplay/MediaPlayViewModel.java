@@ -130,7 +130,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
      * 专门用于显示点赞收藏的弹窗触发,解决多次弹窗的问题
      * @param text
      */
-    public void showLikeCollectToast(String text){
+    public void showLikeCollectCommandToast(String text){
         mToastForLikeCollect.setValue(text);
     }
 
@@ -193,7 +193,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
     public void onLikeClick() {
         if (!mModel.isLogin())  //判断是否登录
         {
-            showLikeCollectToast("请先登录");
+            showLikeCollectCommandToast("请先登录");
             //showToastText("请先登录");
             return;
         }
@@ -203,7 +203,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
                    // showToastText(result.getMsg());
-                    showLikeCollectToast(result.getMsg());
+                    showLikeCollectCommandToast(result.getMsg());
                     Log.d("TAG", "RequestSuccess: " + result.getMsg());
                     mIsLike.setValue(0); //取消点赞成功,同步一下本地数据
                     int value = Integer.valueOf(mLikes.getValue());
@@ -214,14 +214,14 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
                   //  showToastText(errorMsg);
-                    showLikeCollectToast(errorMsg);
+                    showLikeCollectCommandToast(errorMsg);
                 }
             });
         } else if (mIsLike.getValue() == 0) {
             mModel.requestLike(String.valueOf(mArchivesInfo.getValue().getId()), "like", new IRequestCallBack<ResLike>() {
                 @Override
                 public void RequestSuccess(ResLike result) {
-                    showLikeCollectToast(result.getMsg());
+                    showLikeCollectCommandToast(result.getMsg());
                    // showToastText(result.getMsg());
                     mIsLike.setValue(1); //点赞成功,同步一下本地数据
                     int value = Integer.valueOf(mLikes.getValue());
@@ -232,7 +232,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
                     //showToastText(errorMsg);
-                    showLikeCollectToast(errorMsg);
+                    showLikeCollectCommandToast(errorMsg);
                 }
             });
         }
@@ -245,7 +245,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
     public void onClickCollect() {
         if (!mModel.isLogin()) {
             //showToastText("请先登录");
-            showLikeCollectToast("请先登录");
+            showLikeCollectCommandToast("请先登录");
             return;
         }
 
@@ -255,7 +255,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
                     //showToastText(result.getMsg());
-                    showLikeCollectToast(result.getMsg());
+                    showLikeCollectCommandToast(result.getMsg());
                     mIsCollection.setValue(0);  //取消收藏成功
                     Integer value = Integer.valueOf(mCollections.getValue());
                     mCollections.setValue(String.valueOf(--value));
@@ -267,14 +267,14 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
                    // showToastText(errorMsg);
-                    showLikeCollectToast(errorMsg);
+                    showLikeCollectCommandToast(errorMsg);
                 }
             });
         } else if (mIsCollection.getValue() == 0) {   //未收藏,要发起收藏
             mModel.addCollection("archives", String.valueOf(mArchivesInfo.getValue().getId()), new IRequestCallBack<ResBase<Object>>() {
                 @Override
                 public void RequestSuccess(ResBase<Object> result) {
-                    showLikeCollectToast(result.getMsg());
+                    showLikeCollectCommandToast(result.getMsg());
                    // showToastText(result.getMsg());
                     mIsCollection.setValue(1);  //收藏成功
                     Integer value = Integer.valueOf(mCollections.getValue());
@@ -285,7 +285,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
                 @Override
                 public void RequestFailed(int errorCodeValue, String errorMsg) {
                     //showToastText(errorMsg);
-                    showLikeCollectToast(errorMsg);
+                    showLikeCollectCommandToast(errorMsg);
                 }
             });
         }
@@ -298,13 +298,13 @@ public class MediaPlayViewModel extends BaseViewmodel {
      */
     public void sendComment(String comment) {
         if (!mModel.isLogin()) {
-            showToastText("请先登录");
+            showLikeCollectCommandToast("请先登录");
             return;
         }
         mModel.sendComment(comment, String.valueOf(mArchivesInfo.getValue().getId()), new IRequestCallBack<ResBase<ResAddComment>>() {
             @Override
             public void RequestSuccess(ResBase<ResAddComment> result) {
-                showToastText(result.getMsg());
+                showLikeCollectCommandToast(result.getMsg());
                 Integer value = Integer.valueOf(mComments.getValue()); //评论条数增加
                 value++;
                 mComments.setValue(String.valueOf(value));  //把加号的正确数据设置回去
@@ -319,7 +319,7 @@ public class MediaPlayViewModel extends BaseViewmodel {
 
             @Override
             public void RequestFailed(int errorCodeValue, String errorMsg) {
-                showToastText(errorMsg);
+                showLikeCollectCommandToast(errorMsg);
             }
         });
     }
