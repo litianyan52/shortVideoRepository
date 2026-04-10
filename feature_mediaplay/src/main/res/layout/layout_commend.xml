@@ -33,8 +33,9 @@
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="17dp"
+            app:layout_constraintBottom_toTopOf="@id/fct_panel"
             app:layout_constraintTop_toBottomOf="@id/hot_commend">
 
             <com.scwang.smart.refresh.header.ClassicsHeader
@@ -53,110 +54,108 @@
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
+        <View
+            android:id="@+id/fct_panel"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:background="#ff313131"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <View
-                app:layout_constraintTop_toBottomOf="@id/refresh_layout"
-                android:id="@+id/fct_panel"
-                android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:background="#ff313131"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/se_cmd"
+            android:layout_width="172dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="#ff272727"
+            android:hint="聊一聊"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="16dp"
+            android:paddingTop="10.5dp"
+            android:paddingBottom="10.5dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toBottomOf="@id/fct_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fct_panel" />
 
-            <EditText
-                android:id="@+id/se_cmd"
-                android:layout_width="172dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="#ff272727"
-                android:hint="聊一聊"
-                android:inputType="text"
-                android:imeOptions="actionSend"
-                android:paddingStart="16dp"
-                android:paddingTop="10.5dp"
-                android:paddingBottom="10.5dp"
-                android:textColorHint="@color/white"
-                android:textSize="11dp"
-                app:layout_constraintBottom_toBottomOf="@id/fct_panel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/fct_panel" />
+        <ImageView
+            android:id="@+id/like"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="28dp"
+            android:onClick="@{()->viewModel.onLikeClick()}"
+            android:src="@mipmap/icon_video_unlike"
+            app:layout_constraintBottom_toBottomOf="@id/se_cmd"
+            app:layout_constraintEnd_toStartOf="@id/collect"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/se_cmd"
+            app:layout_constraintTop_toTopOf="@id/se_cmd" />
 
-            <ImageView
-                android:id="@+id/like"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="28dp"
-                android:onClick="@{()->viewModel.onLikeClick()}"
-                android:src="@mipmap/icon_video_unlike"
-                app:layout_constraintBottom_toBottomOf="@id/se_cmd"
-                app:layout_constraintEnd_toStartOf="@id/collect"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toEndOf="@id/se_cmd"
-                app:layout_constraintTop_toTopOf="@id/se_cmd" />
-
-            <TextView
-                android:id="@+id/num_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@{viewModel.likes}"
-                android:textColor="#ffffffff"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/like"
-                app:layout_constraintStart_toEndOf="@id/like"
-                app:layout_constraintTop_toTopOf="@id/like"
-                tools:text="210" />
-
-
-            <ImageView
-                android:id="@+id/collect"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:onClick="@{()->viewModel.onClickCollect()}"
-                android:src="@mipmap/icon_video_collect"
-                app:layout_constraintBottom_toBottomOf="@id/like"
-                app:layout_constraintEnd_toStartOf="@id/commend"
-                app:layout_constraintStart_toEndOf="@id/like"
-                app:layout_constraintTop_toTopOf="@id/like" />
-
-            <TextView
-                android:id="@+id/num_collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@{viewModel.collections}"
-                android:textColor="#ffffffff"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/collect"
-                app:layout_constraintStart_toEndOf="@id/collect"
-                app:layout_constraintTop_toTopOf="@id/collect"
-                tools:text="210" />
-
-            <ImageView
-                android:id="@+id/commend"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="26dp"
-                android:src="@mipmap/icon_video_commend"
-                app:layout_constraintBottom_toBottomOf="@id/collect"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/collect"
-                app:layout_constraintTop_toTopOf="@id/collect" />
-
-            <TextView
-                android:id="@+id/num_commend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@{viewModel.comments}"
-                android:textColor="#ffffffff"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/commend"
-                app:layout_constraintStart_toEndOf="@id/commend"
-                app:layout_constraintTop_toTopOf="@id/commend"
-                tools:text="2" />
+        <TextView
+            android:id="@+id/num_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{viewModel.likes}"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/like"
+            app:layout_constraintStart_toEndOf="@id/like"
+            app:layout_constraintTop_toTopOf="@id/like"
+            tools:text="210" />
 
 
+        <ImageView
+            android:id="@+id/collect"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:onClick="@{()->viewModel.onClickCollect()}"
+            android:src="@mipmap/icon_video_collect"
+            app:layout_constraintBottom_toBottomOf="@id/like"
+            app:layout_constraintEnd_toStartOf="@id/commend"
+            app:layout_constraintStart_toEndOf="@id/like"
+            app:layout_constraintTop_toTopOf="@id/like" />
+
+        <TextView
+            android:id="@+id/num_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{viewModel.collections}"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/collect"
+            app:layout_constraintStart_toEndOf="@id/collect"
+            app:layout_constraintTop_toTopOf="@id/collect"
+            tools:text="210" />
+
+        <ImageView
+            android:id="@+id/commend"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="26dp"
+            android:src="@mipmap/icon_video_commend"
+            app:layout_constraintBottom_toBottomOf="@id/collect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/collect"
+            app:layout_constraintTop_toTopOf="@id/collect" />
+
+        <TextView
+            android:id="@+id/num_commend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{viewModel.comments}"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/commend"
+            app:layout_constraintStart_toEndOf="@id/commend"
+            app:layout_constraintTop_toTopOf="@id/commend"
+            tools:text="2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

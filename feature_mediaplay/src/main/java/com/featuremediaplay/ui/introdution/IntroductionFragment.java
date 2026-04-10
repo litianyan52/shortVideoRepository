@@ -1,7 +1,6 @@
 package com.featuremediaplay.ui.introdution;
 
-import android.os.Handler;
-import android.os.Looper;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -26,18 +25,17 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
     private ArchivesInfo mArchivesInfo;
     private CommendPopWindow mPopWindow;
     private VideoListFragment mVideoListFragment;
-    private Handler mHandler;
 
-    public void updateHeight() {
-        mHandler = new Handler(Looper.getMainLooper());
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDataBinding.getRoot().requestLayout(); //等fragment渲染完成后重新计算和当前fragment相关布局的大小和位置
-            }
-        }, 100);
-
-    }
+//    public void updateHeight() {
+//        mHandler = new Handler(Looper.getMainLooper());
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDataBinding.getRoot().requestLayout(); //等fragment渲染完成后重新计算和当前fragment相关布局的大小和位置
+//            }
+//        }, 100);
+//
+//    }
 
     @Override
     public MediaPlayViewModel getViewModel() {
@@ -90,6 +88,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
      */
     public void refreshVideoListFragment(){
        mVideoListFragment.refreshForExternalUse();
+       mDataBinding.nts.scrollTo(0,0);
     }
 
     @Override
@@ -124,8 +123,8 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler = null;
+//        mHandler.removeCallbacksAndMessages(null);
+//        mHandler = null;
         dismissPopWindow();
 
     }

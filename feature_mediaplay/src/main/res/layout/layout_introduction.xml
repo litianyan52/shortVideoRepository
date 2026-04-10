@@ -15,165 +15,180 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
-        <TextView
-            android:id="@+id/video_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="24dp"
-            tools:text="孤独与自由，在世界尽头思考人生"
-            android:text="@{viewModel.title}"
-            android:textColor="#ffffffff"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/video_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:text="#旅行 #开眼精迭"
-            android:text="@{viewModel.channel}"
-            android:textColor="#ffffffff"
-            android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="@id/video_title"
-            app:layout_constraintTop_toBottomOf="@id/video_title" />
-
-        <TextView
-            android:id="@+id/video_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="15dp"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:text="@{viewModel.description}"
-            tools:text="你能在黑暗中找到光明吗?这是一篇非常个人化的旅行短片，使用 Sony FX3相机拍摄于冰岛，包含创作者独自旅行时的一些想法，在冰岛夜间的孤独与思考。影片通过镜头展现了冰岛独特的自然景观以及旅途中与自己内心的对话，探讨孤独与"
-            android:textColor="#ffffffff"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/video_title"
-            app:layout_constraintTop_toBottomOf="@id/video_label" />
-
-        <ImageView
-            android:id="@+id/like"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:src="@mipmap/icon_video_unlike"
-            app:layout_constraintEnd_toStartOf="@id/collect"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:onClick="@{()->viewModel.onLikeClick()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/video_description" />
-
-        <TextView
-            android:id="@+id/num_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="210"
-            android:text="@{viewModel.likes}"
-            android:textColor="#ffffffff"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@id/like"
-            app:layout_constraintStart_toStartOf="@id/like"
-            app:layout_constraintTop_toBottomOf="@id/like" />
-
-
-        <ImageView
-            android:id="@+id/collect"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:onClick="@{()->viewModel.onClickCollect()}"
-            android:src="@mipmap/icon_video_collect"
-            app:layout_constraintEnd_toStartOf="@id/commend"
-            app:layout_constraintStart_toEndOf="@id/like"
-            app:layout_constraintTop_toBottomOf="@id/video_description" />
-
-        <TextView
-            android:id="@+id/num_collect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="210"
-            android:text="@{viewModel.collections}"
-            android:textColor="#ffffffff"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@id/collect"
-            app:layout_constraintStart_toStartOf="@id/collect"
-            app:layout_constraintTop_toBottomOf="@id/collect" />
-
-        <ImageView
-            android:id="@+id/commend"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:src="@mipmap/icon_video_commend"
-            app:layout_constraintEnd_toStartOf="@id/share"
-            app:layout_constraintStart_toEndOf="@id/collect"
-            app:layout_constraintTop_toBottomOf="@id/video_description" />
-
-        <TextView
-            android:id="@+id/num_commend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="210"
-            android:text="@{viewModel.comments}"
-            android:textColor="#ffffffff"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@id/commend"
-            app:layout_constraintStart_toStartOf="@id/commend"
-            app:layout_constraintTop_toBottomOf="@id/commend" />
-
-        <ImageView
-            android:id="@+id/share"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:src="@mipmap/icon_video_share"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/commend"
-            app:layout_constraintTop_toBottomOf="@id/video_description" />
-
-        <TextView
-            android:id="@+id/num_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="210"
-            android:text="@{viewModel.shares}"
-            android:textColor="#ffffffff"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@id/share"
-            app:layout_constraintStart_toStartOf="@id/share"
-            app:layout_constraintTop_toBottomOf="@id/share" />
-
-        <View
-            android:id="@+id/media_play_line"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nts"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="24dp"
-            android:background="#33ffffff"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/num_like" />
+            android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/media_play_fcv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="22dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/media_play_line"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/video_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@{viewModel.title}"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="孤独与自由，在世界尽头思考人生" />
+
+
+                <TextView
+                    android:id="@+id/video_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.channel}"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@id/video_title"
+                    app:layout_constraintTop_toBottomOf="@id/video_title"
+                    tools:text="#旅行 #开眼精迭" />
+
+                <TextView
+                    android:id="@+id/video_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="15dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="@{viewModel.description}"
+                    android:textColor="#ffffffff"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/video_title"
+                    app:layout_constraintTop_toBottomOf="@id/video_label"
+                    tools:text="你能在黑暗中找到光明吗?这是一篇非常个人化的旅行短片，使用 Sony FX3相机拍摄于冰岛，包含创作者独自旅行时的一些想法，在冰岛夜间的孤独与思考。影片通过镜头展现了冰岛独特的自然景观以及旅途中与自己内心的对话，探讨孤独与" />
+
+                <ImageView
+                    android:id="@+id/like"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:onClick="@{()->viewModel.onLikeClick()}"
+                    android:src="@mipmap/icon_video_unlike"
+                    app:layout_constraintEnd_toStartOf="@id/collect"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/video_description" />
+
+                <TextView
+                    android:id="@+id/num_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.likes}"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@id/like"
+                    app:layout_constraintStart_toStartOf="@id/like"
+                    app:layout_constraintTop_toBottomOf="@id/like"
+                    tools:text="210" />
+
+
+                <ImageView
+                    android:id="@+id/collect"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:onClick="@{()->viewModel.onClickCollect()}"
+                    android:src="@mipmap/icon_video_collect"
+                    app:layout_constraintEnd_toStartOf="@id/commend"
+                    app:layout_constraintStart_toEndOf="@id/like"
+                    app:layout_constraintTop_toBottomOf="@id/video_description" />
+
+                <TextView
+                    android:id="@+id/num_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.collections}"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@id/collect"
+                    app:layout_constraintStart_toStartOf="@id/collect"
+                    app:layout_constraintTop_toBottomOf="@id/collect"
+                    tools:text="210" />
+
+                <ImageView
+                    android:id="@+id/commend"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@mipmap/icon_video_commend"
+                    app:layout_constraintEnd_toStartOf="@id/share"
+                    app:layout_constraintStart_toEndOf="@id/collect"
+                    app:layout_constraintTop_toBottomOf="@id/video_description" />
+
+                <TextView
+                    android:id="@+id/num_commend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.comments}"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@id/commend"
+                    app:layout_constraintStart_toStartOf="@id/commend"
+                    app:layout_constraintTop_toBottomOf="@id/commend"
+                    tools:text="210" />
+
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:src="@mipmap/icon_video_share"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/commend"
+                    app:layout_constraintTop_toBottomOf="@id/video_description" />
+
+                <TextView
+                    android:id="@+id/num_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.shares}"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@id/share"
+                    app:layout_constraintStart_toStartOf="@id/share"
+                    app:layout_constraintTop_toBottomOf="@id/share"
+                    tools:text="210" />
+
+                <View
+                    android:id="@+id/media_play_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="24dp"
+                    android:background="#33ffffff"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/num_like" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/media_play_fcv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="22dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/media_play_line" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

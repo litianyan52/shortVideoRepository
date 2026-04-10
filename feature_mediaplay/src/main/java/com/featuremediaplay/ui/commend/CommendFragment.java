@@ -1,11 +1,12 @@
 package com.featuremediaplay.ui.commend;
 
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -13,9 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.video_data.bean.ResComment;
 import com.featuremediaplay.BR;
 import com.featuremediaplay.R;
-import com.example.video_data.bean.ResComment;
 import com.featuremediaplay.databinding.LayoutCommendBinding;
 import com.featuremediaplay.dialog.DeleteCommentDialog;
 import com.featuremediaplay.ui.commend.adapter.CommentAdapter;
@@ -29,9 +30,11 @@ import java.util.List;
 
 @Route(path = ArouterPath.Video.VIDEO_LIST_FRAGMENT_COMMEND)
 public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutCommendBinding> {
+
     private static final String TAG = "CommendFragment";
+
     private CommentAdapter mAdapter;
-    private Handler mHandler;
+    private ViewTreeObserver.OnGlobalLayoutListener mKeyboardLayoutListener;
 
     @Override
     public MediaPlayViewModel getViewModel() {
@@ -51,18 +54,51 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
 
     @Override
     public void initView() {
-        mDataBinding.seCmd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    String content = mDataBinding.seCmd.getText().toString().trim();
-                    mDataBinding.seCmd.getText().clear();//清除输入框内容
-                    mViewmodel.sendComment(content);//发起评论请求
-                    return true;
+        initInputBar();
+        observeKeyboard();
+    }
+
+    private void initInputBar() {
+        mDataBinding.seCmd.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                String content = mDataBinding.seCmd.getText().toString().trim();
+                if (!content.isEmpty()) {
+                    mViewmodel.sendComment(content);
+                    mDataBinding.seCmd.getText().clear();
                 }
-                return false;
+                return true;
             }
+            return false;
         });
+    }
+
+    private void observeKeyboard() {
+        View rootView = mDataBinding.getRoot();
+        mKeyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                rootView.getWindowVisibleDisplayFrame(rect);
+                int screenHeight = rootView.getRootView().getHeight();
+                int keyboardHeight = screenHeight - rect.bottom;
+                int bottomMargin = 0;
+                if (keyboardHeight > screenHeight * 0.15f) {
+                    bottomMargin = keyboardHeight - getNavigationBarHeight();
+                    if (bottomMargin < 0) {
+                        bottomMargin = 0;
+                    }
+                }
+                mDataBinding.fctPanel.setTranslationY(-bottomMargin);
+                mDataBinding.seCmd.setTranslationY(-bottomMargin);
+                mDataBinding.like.setTranslationY(-bottomMargin);
+                mDataBinding.numLike.setTranslationY(-bottomMargin);
+                mDataBinding.collect.setTranslationY(-bottomMargin);
+                mDataBinding.numCollect.setTranslationY(-bottomMargin);
+                mDataBinding.commend.setTranslationY(-bottomMargin);
+                mDataBinding.numCommend.setTranslationY(-bottomMargin);
+            }
+        };
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(mKeyboardLayoutListener);
     }
 
     @Override
@@ -70,7 +106,6 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
         mViewmodel.getCommentList(true);  //由于是共享viewModel,所以可以在fragment创建时再加载数据,创建时加载是第一次加载
         initRefreshLayout();
         initObservers();
-
     }
 
     /**
@@ -88,7 +123,7 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
                 if (mDataBinding.refreshLayout.isLoading()) {
                     mDataBinding.refreshLayout.finishLoadMore();
                 }
-                    Log.d(TAG, "onChanged: " + resComments);
+                Log.d(TAG, "onChanged: " + resComments);
                 mAdapter = new CommentAdapter();
                 mAdapter.setCallBack(new CommentAdapter.DeleteCallBack() {
                     @Override
@@ -107,14 +142,13 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
             }
         });
 
-
         mViewmodel.getIsEnableLoadMore().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEnableLoadMore) {
                 mDataBinding.refreshLayout.setEnableLoadMore(isEnableLoadMore);  //设置是否允许下拉加载
             }
         });
-        //更新点赞按钮图片状态
+
         mViewmodel.getIsLike().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -127,7 +161,6 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
             }
         });
 
-        //更新收藏按钮图片状态
         mViewmodel.getIsCollection().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -152,7 +185,6 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
                     mDataBinding.refreshLayout.finishLoadMore();
                 }
                 mViewmodel.getCommentList(false);
-
             }
 
             @Override
@@ -166,53 +198,42 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
         });
     }
 
-    /**
-     * 重新计算整个布局的高
-     */
-    public void updateHeight() {
-        mHandler = new Handler(Looper.getMainLooper());
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDataBinding.getRoot().requestLayout(); //等fragment渲染完成后重新计算和当前fragment相关布局的大小和位置
-            }
-        }, 300);
+//    /**
+//     * 重新计算整个布局的高
+//     */
+//    public void updateHeight() {
+//        mHandler = new Handler(Looper.getMainLooper());
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mDataBinding.getRoot().requestLayout(); //等fragment渲染完成后重新计算和当前fragment相关布局的大小和位置
+//            }
+//        }, 300);
+//    }
 
+    private int getNavigationBarHeight() {
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return getResources().getDimensionPixelSize(resourceId);
+        }
+        return 0;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mKeyboardLayoutListener != null) {
+            mDataBinding.getRoot().getViewTreeObserver().removeOnGlobalLayoutListener(mKeyboardLayoutListener);
+            mKeyboardLayoutListener = null;
+        }
+        super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler = null;
+//        if (mHandler != null) {
+//            mHandler.removeCallbacksAndMessages(null);
+//            mHandler = null;
+//        }
     }
-
-
-    //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                Rect r = new Rect();
-//                view.getWindowVisibleDisplayFrame(r);
-//                int screenHeight = view.getRootView().getHeight();
-//                int keypadHeight = screenHeight - r.bottom;
-//
-//                if (keypadHeight > screenHeight * 0.15) { // 键盘显示
-//                    // 获取导航栏高度
-//                    int navigationBarHeight = 0;
-//                    int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-//                    if (resourceId > 0) {
-//                        navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
-//                    }
-//                    // 调整位置时减去状态栏和导航栏的高度
-//                    mDataBinding.seCmd.setTranslationY(-(keypadHeight - navigationBarHeight));
-//                } else { // 键盘隐藏
-//                    mDataBinding.seCmd.setTranslationY(0);
-//                }
-//            }
-//        });
-//    }
 }

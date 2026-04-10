@@ -17,91 +17,82 @@
         android:background="@color/black"
         tools:context=".ui.mediaplay.MediaPlayActivity">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nts"
+        <ImageView
+            android:id="@+id/author_avatar"
+            CircleImageUri="@{viewModel.authorAvatar}"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/play_back"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/icon_user_unlogin" />
+
+        <ImageView
+            android:id="@+id/play_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="14dp"
+            android:onClick="@{()->viewModel.finishPage()}"
+            android:src="@mipmap/icon_arrow_wh_left"
+            app:layout_constraintBottom_toBottomOf="@id/author_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/author_avatar" />
+
+        <TextView
+            android:id="@+id/author_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{viewModel.authorName}"
+            android:textColor="#ffffffff"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/author_avatar"
+            app:layout_constraintStart_toEndOf="@id/author_avatar"
+            app:layout_constraintTop_toTopOf="@id/author_avatar"
+            tools:text="全球旅行视频精选" />
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/play_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="210.5dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/author_avatar" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <com.zhengsr.tablib.view.flow.TabVpFlowLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/play_view"
+            app:tab_color="@color/white"
+            app:tab_height="1dp"
+            app:tab_margin_l="40dp"
+            app:tab_orientation="horizontal"
+            app:tab_text_select_color="@color/white"
+            app:tab_text_unselect_color="@color/white"
+            app:tab_type="rect" />
 
-                <ImageView
-                    android:id="@+id/author_avatar"
-                    CircleImageUri="@{viewModel.authorAvatar}"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toEndOf="@id/play_back"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@mipmap/icon_user_unlogin" />
+        <View
+            android:id="@+id/play_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#33ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
-                <ImageView
-                    android:id="@+id/play_back"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="14dp"
-                    android:onClick="@{()->viewModel.finishPage()}"
-                    android:src="@mipmap/icon_arrow_wh_left"
-                    app:layout_constraintBottom_toBottomOf="@id/author_avatar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/author_avatar" />
 
-                <TextView
-                    android:id="@+id/author_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:text="@{viewModel.authorName}"
-                    android:textColor="#ffffffff"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/author_avatar"
-                    app:layout_constraintStart_toEndOf="@id/author_avatar"
-                    app:layout_constraintTop_toTopOf="@id/author_avatar"
-                    tools:text="全球旅行视频精选" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/video_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
-                <androidx.media3.ui.PlayerView
-                    android:id="@+id/play_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="210.5dp"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/author_avatar" />
-
-                <com.zhengsr.tablib.view.flow.TabVpFlowLayout
-                    android:id="@+id/tab_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/play_view"
-                    app:tab_color="@color/white"
-                    app:tab_height="1dp"
-                    app:tab_margin_l="40dp"
-                    app:tab_orientation="horizontal"
-                    app:tab_text_select_color="@color/white"
-                    app:tab_text_unselect_color="@color/white"
-                    app:tab_type="rect" />
-
-                <View
-                    android:id="@+id/play_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#33ffffff"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tab_layout" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/video_view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/play_line" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+           app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/play_line" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

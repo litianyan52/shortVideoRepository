@@ -44,7 +44,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     @Autowired(name = ArouterPath.Video.KEY_VIDEO_ID)
     public int mVideoId;   //要播放的视频id
     private ViewPager2 mVideoViewPager;
-    private ViewPager2.OnPageChangeCallback mPageChangeCallback;
+
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -53,7 +53,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         mViewModel.RequestVideoInfo(String.valueOf(mVideoId)); //请求视频相关的数据
         mViewModel.getIsEnableLoadMore().setValue(true);   //因为上个视频可能已经因为数据不足十条的原因导致不能继续请求数据了,这里要重置使能请求数据
         Log.d(TAG, "onNewIntent: " +mVideoId);
-        mdataBinding.nts.scrollTo(0,0);
+        //mdataBinding.nts.scrollTo(0,0);
         mIntroductionFragment.refreshVideoListFragment();
     }
 
@@ -127,19 +127,19 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
                 return fragmentArrayList == null ? 0 : fragmentArrayList.size();
             }
         });
-        mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                if (position == 0) {
-                    mIntroductionFragment.updateHeight();  //重新计算高
-                } else if (position == 1) {
-                    mCommendFragment.updateHeight();
-
-                }
-            }
-        };
-        mVideoViewPager.registerOnPageChangeCallback(mPageChangeCallback);
+//        mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//                if (position == 0) {
+//                    mIntroductionFragment.updateHeight();  //重新计算高
+//                } else if (position == 1) {
+//                    mCommendFragment.updateHeight();
+//
+//                }
+//            }
+//        };
+       // mVideoViewPager.registerOnPageChangeCallback(mPageChangeCallback);
     }
 
     @Override
@@ -220,12 +220,12 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     protected void onDestroy() {
         super.onDestroy();
         mInstance.destroy();
-        if (mVideoViewPager != null && mPageChangeCallback != null) {
-            mVideoViewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
-        }
+//        if (mVideoViewPager != null && mPageChangeCallback != null) {
+//            mVideoViewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
+//        }
 
         mVideoViewPager = null;
-        mPageChangeCallback = null;
+
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)  //在主线程中处理,正好收到event时需要更新UI所以在主线程中更新正好
