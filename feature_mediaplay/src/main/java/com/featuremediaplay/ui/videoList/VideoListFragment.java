@@ -23,6 +23,7 @@ public class VideoListFragment extends BaseListFragment<ResVideo> implements Vid
     public int type;  //不能私有化,不然自动注解不了
     @Autowired(name = ArouterPath.Video.VIDEO_STYLE_KEY)
     public boolean isWhite; //视频的文字样式是否为白色
+    private VideoListAdapter mVideoListAdapter;
 
     @Override
     public BaseListViewmodel getViewModel() {
@@ -50,10 +51,10 @@ public class VideoListFragment extends BaseListFragment<ResVideo> implements Vid
     public BaseAdapter<ResVideo, VideoListAdapter.VideoViewHolder> getAdapter() {  //不知道编译器怎么知道具体类型的
 
 
-        VideoListAdapter videoListAdapter = new VideoListAdapter();
-        videoListAdapter.setTextStyle(isWhite); //设置文字样式是否为白色
-        videoListAdapter.setCallback(this);  //在传入给基类时就把回调传过去
-        return videoListAdapter;
+        mVideoListAdapter = new VideoListAdapter();
+        mVideoListAdapter.setTextStyle(isWhite); //设置文字样式是否为白色
+        mVideoListAdapter.setCallback(this);  //在传入给基类时就把回调传过去
+        return mVideoListAdapter;
     }
 
     /**
@@ -76,8 +77,13 @@ public class VideoListFragment extends BaseListFragment<ResVideo> implements Vid
                 .navigation();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mVideoListAdapter.setCallback(null);//让VideoListAdapter不再持有VideoListFragment
+    }
 
-//    public void setCode(int code) {
+    //    public void setCode(int code) {
 //        mViewmodel.setErrorCode(code);
 //    }
 }
