@@ -84,6 +84,7 @@ public abstract class BaseActivity<VM extends BaseViewmodel, V extends ViewDataB
             mViewModel.getIsFinish().observe(this, isFinish ->
             {
                 if (isFinish) {
+                    Log.d(TAG, "initViewmodel: ");
                     finish();
                 }
             });

@@ -1,5 +1,6 @@
 package com.featuremediaplay.ui.search;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.List;
 @Route(path = ArouterPath.Video.ACTIVITY_SEARCH_FUNCTION)
 public class SearchFunctionActivity extends BaseActivity<SearchFunctionViewModel, ActivitySearchFunctionBinding> {
 
+    private static final String TAG = "SearchFunctionActivity";
 
     private FindSearchAdapter mAdapter;
 
@@ -49,6 +51,7 @@ public class SearchFunctionActivity extends BaseActivity<SearchFunctionViewModel
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    Log.d(TAG, "onEditorAction: ");
                     String keyword = mdataBinding.inputSearch.getText().toString().trim();
                     mdataBinding.inputSearch.getText().clear();
                     mViewModel.getSearchResult(keyword);

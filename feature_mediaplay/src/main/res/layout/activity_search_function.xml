@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="vewiModel"
+            name="viewModel"
             type="com.featuremediaplay.ui.search.SearchFunctionViewModel" />
     </data>
 
@@ -18,9 +17,10 @@
 
         <EditText
             android:id="@+id/input_search"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:layout_marginEnd="8dp"
             android:hint="搜一搜"
             android:imeOptions="actionSend"
             android:inputType="text"
@@ -29,25 +29,27 @@
             android:paddingBottom="10dp"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/search_cancel"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/search_line"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="14.5dp"
             android:layout_marginEnd="13.5dp"
             android:background="#ff000000"
-            app:layout_constraintBottom_toBottomOf="@id/input_search"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/input_search" />
 
         <TextView
             android:id="@+id/search_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="9dp"
             android:layout_marginEnd="20dp"
+            android:onClick="@{() -> viewModel.finishPage()}"
             android:text="取消"
             android:textColor="#ff000000"
             android:textSize="13sp"
