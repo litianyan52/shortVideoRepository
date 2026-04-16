@@ -111,18 +111,44 @@ public class ChangeInfoModel {
      */
     public MultipartBody.Part createMultipartBody(Uri uri) {
         ContentResolver contentResolver = BaseApplication.getContext().getContentResolver();
-        String type  = contentResolver.getType(uri); //从uri中获取类型
+
+        String tempMimeType = contentResolver.getType(uri);
+        if (tempMimeType == null) {
+            String fileName = getFileNameFromUri(uri);
+            String extension = null;
+            int dot = fileName.lastIndexOf('.');
+            if (dot >= 0 && dot < fileName.length() - 1) {
+                extension = fileName.substring(dot + 1).toLowerCase();
+            }
+
+            if ("jpg".equals(extension) || "jpeg".equals(extension)) {
+                tempMimeType = "image/jpeg";
+            } else if ("png".equals(extension)) {
+                tempMimeType = "image/png";
+            } else if ("mp4".equals(extension)) {
+                tempMimeType = "video/mp4";
+            } else {
+                tempMimeType = "application/octet-stream";
+            }
+        }
+
+        final String mimeType = tempMimeType;
+        final String fileName = getFileNameFromUri(uri);
+
         RequestBody requestBody = new RequestBody() {
-            @Nullable
             @Override
             public MediaType contentType() {
-                return MediaType.parse(type);
+                return MediaType.parse(mimeType);
             }
 
             @Override
             public void writeTo(@NonNull BufferedSink bufferedSink) throws IOException {
                 try (InputStream inputStream = contentResolver.openInputStream(uri)) {
-                    byte buffer[] = new byte[1024];
+                    if (inputStream == null) {
+                        throw new IOException("无法打开输入流: " + uri);
+                    }
+
+                    byte[] buffer = new byte[8192];
                     int read;
                     while ((read = inputStream.read(buffer)) != -1) {
                         bufferedSink.write(buffer, 0, read);
@@ -131,10 +157,7 @@ public class ChangeInfoModel {
             }
         };
 
-        MultipartBody.Part file = MultipartBody.Part.createFormData("file",
-                getFileNameFromUri(uri), requestBody);
-
-        return file;
+        return MultipartBody.Part.createFormData("file", fileName, requestBody);
     }
 
 
@@ -144,25 +167,59 @@ public class ChangeInfoModel {
      * @return
      */
     public String getFileNameFromUri(Uri uri) {
-        String fileName = null;
-        if (uri.getScheme().equals("content")) {
-            ContentResolver contentResolver = BaseApplication.getContext().getContentResolver();
+        if (uri == null) {
+            return "upload_file";
+        }
 
-            try (Cursor cursor = contentResolver.query(uri, null, null, null, null);) {
-                if (cursor != null && cursor.moveToNext()) {
-                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    if (index != -1) {
-                        fileName = cursor.getString(index);
+        String scheme = uri.getScheme();
+        String fileName = null;
+
+        // 1. file:// 直接从路径取文件名
+        if ("file".equalsIgnoreCase(scheme)) {
+            String path = uri.getPath();
+            if (path != null) {
+                fileName = new File(path).getName();
+            }
+        }
+
+        // 2. content:// 通过 ContentResolver 查询 DISPLAY_NAME
+        if (fileName == null && "content".equalsIgnoreCase(scheme)) {
+            ContentResolver contentResolver = BaseApplication.getContext().getContentResolver();
+            Cursor cursor = null;
+            try {
+                cursor = contentResolver.query(uri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (nameIndex >= 0) {
+                        fileName = cursor.getString(nameIndex);
                     }
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
-
-        } else if (uri.getScheme().equals("file") ) {
-            fileName = new File(uri.getPath()).getName();
         }
-        return fileName != null ? fileName : "unname_file";
+
+        // 3. 兜底：再尝试取 path 最后一段
+        if (fileName == null) {
+            String path = uri.getPath();
+            if (path != null) {
+                int lastSlash = path.lastIndexOf('/');
+                if (lastSlash >= 0 && lastSlash < path.length() - 1) {
+                    fileName = path.substring(lastSlash + 1);
+                }
+            }
+        }
+
+        // 4. 最终兜底
+        if (fileName == null || fileName.trim().isEmpty()) {
+            fileName = "upload_file";
+        }
+
+        return fileName;
     }
 
 

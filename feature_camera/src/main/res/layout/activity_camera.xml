@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/camera_capture"
+            android:id="@+id/btnTakePhoto"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@mipmap/icon_camera_capture"

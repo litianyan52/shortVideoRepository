@@ -1,5 +1,6 @@
 package com.featureuser.ui.changeInfo;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.callback.NavCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.feature_camera.ui.camera.CameraActivity;
 import com.featureuser.BR;
 import com.featureuser.R;
 import com.featureuser.databinding.ActivityChangeInfoBinding;
@@ -24,7 +26,40 @@ import com.libase.utils.StatusBarUtils;
 
 @Route(path = ArouterPath.User.ACTIVITY_CHANGE_INFO)
 public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, ActivityChangeInfoBinding> {
-    private ActivityResultLauncher<String> imagePickLauncher;
+
+    private static final String TAG = "ChangeInfoActivity";
+    /**
+     * 表明取回来的是图片,在这里处理拿回来的图片Uri
+     */
+    private final ActivityResultLauncher<String>  imagePickLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        @Override    //跳转相册
+        public void onActivityResult(Uri uri) {
+            if (uri == null){
+                return;
+            }
+            //改变当前头像,但是还未保存头像
+            Log.d(TAG, "onActivityResult: " + uri);
+            commonBindingAdapter.LoadCircleImage(mdataBinding.changeInfoAvatar,uri.toString());
+            mViewModel.upLoadFile(uri);
+        }
+    });
+
+    private final ActivityResultLauncher<Intent> cameraLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            Log.d(TAG, ": " + uri);
+                            String uriStr = data.getStringExtra("photo_uri");
+                            String path = data.getStringExtra("photo_path");
+                            mViewModel.upLoadFile(uri);
+                            // 这里处理照片
+                        }
+                    }
+            ); //跳转相机
+
 
     @Override
     public ChangeInfoViewModel getViewModel() {
@@ -43,25 +78,7 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, Activi
 
     @Override
     public void initView() {
-
         StatusBarUtils.AddStatusHeightToRootView(mdataBinding.getRoot());
-
-
-
-        /**
-         * 表明取回来的是图片,在这里处理拿回来的图片Uri
-         */
-        imagePickLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-            @Override
-            public void onActivityResult(Uri uri) {
-                if (uri == null){
-                    return;
-                }
-                //改变当前头像,但是还未保存头像
-                commonBindingAdapter.LoadCircleImage(mdataBinding.changeInfoAvatar,uri.toString());
-                mViewModel.upLoadFile(uri);
-            }
-        });
     }
 
     @Override
@@ -101,8 +118,9 @@ public class ChangeInfoActivity extends BaseActivity<ChangeInfoViewModel, Activi
                     TwoChoiceDialog.showDialog(ChangeInfoActivity.this, "更换头像", "拍照", "相册", new TwoChoiceDialog.TwoChoiceDialogCallBack() {
                         @Override
                         public void chooseFirst() {
-
-                            ARouter.getInstance().build(ArouterPath.Camera.ACTIVITY_CAMERA).navigation();
+                        //跳转到拍照页面
+                            Intent intent = new Intent(ChangeInfoActivity.this, CameraActivity.class);
+                            cameraLauncher.launch(intent);
                         }
 
                         @Override
