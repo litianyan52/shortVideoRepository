@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -33,4 +34,5 @@ dependencies {
     api libs.retrofit
     api libs.retrofitConverter
     api libs.okhttpInterceptor
+    api libs.coroutines.android
 }

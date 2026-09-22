@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.demo20shvideoproject.databinding.ActivityMainBinding;
 import com.libase.base.BaseActivity;
 import com.libase.config.ArouterPath;
+import com.libase.utils.RunTimeCheck;
 
 public class MainActivity extends BaseActivity<MainViewmodel, ActivityMainBinding> {
 
@@ -74,6 +75,8 @@ public class MainActivity extends BaseActivity<MainViewmodel, ActivityMainBindin
     @Override
     public void initData() {
         mdataBinding.home.setChecked(true);   //主动设置一下让启动时处于home页面
+
+        RunTimeCheck.INSTANCE.getMemoryInfo();
 
     }
 

@@ -26,6 +26,7 @@ import com.libase.base.BaseActivity;
 import com.libase.config.ArouterPath;
 import com.libase.eventBus.MessageEvent;
 import com.libase.manager.UserManager;
+import com.libase.utils.RunTimeCheck;
 import com.libase.utils.StatusBarUtils;
 import com.zhengsr.tablib.view.adapter.TabFlowAdapter;
 
@@ -48,6 +49,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
 
     @Override
     protected void onNewIntent(Intent intent) {
+        RunTimeCheck.INSTANCE.getMemoryInfo();
         super.onNewIntent(intent);
         mVideoId = intent.getIntExtra(ArouterPath.Video.KEY_VIDEO_ID, 0);
         mViewModel.RequestVideoInfo(String.valueOf(mVideoId)); //请求视频相关的数据
@@ -57,7 +59,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
         mIntroductionFragment.refreshVideoListFragment();
     }
 
-    private MediaPlayerManager mInstance;
+    private MediaPlayerManager mPlayer;
 
     @Override
     public MediaPlayViewModel getViewModel() {
@@ -84,8 +86,8 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     }
 
     private void initPlayer() {
-        mInstance = MediaPlayerManager.getInstance(MediaPlayActivity.this);
-        mInstance.bindPlayerView(mdataBinding.playView);
+        mPlayer = MediaPlayerManager.getInstance(MediaPlayActivity.this);
+        mPlayer.bindPlayerView(mdataBinding.playView);
     }
 
     /**
@@ -144,13 +146,14 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
 
     @Override
     public void initData() {
+        RunTimeCheck.INSTANCE.getMemoryInfo();
 //        Log.d("TAG", "initData: "  + UserManager.getInstance().getUserToken());
         mViewModel.RequestVideoInfo(String.valueOf(mVideoId)); //请求视频相关的数据
         mViewModel.getArchivesInfo().observe(this, new Observer<ArchivesInfo>() {
             @Override
             public void onChanged(ArchivesInfo archivesInfo) {
 
-                mInstance.play(archivesInfo.getVideo_file());
+                mPlayer.play(archivesInfo.getVideo_file());
                 mViewModel.getCommentList(true);  //点击下一个视频后重新请求评论列表
             }
         });
@@ -182,14 +185,14 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        mInstance.playWhenReady(true);
+        mPlayer.playWhenReady(true);
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        mInstance.playWhenReady(false);
+        mPlayer.playWhenReady(false);
     }
 
     /**
@@ -209,7 +212,7 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     protected void onResume() {
         super.onResume();
         if (mViewModel.getArchivesInfo().getValue() != null) {
-            mInstance.play(mViewModel.getArchivesInfo().getValue().getVideo_file());
+            mPlayer.play(mViewModel.getArchivesInfo().getValue().getVideo_file());
         }
     }
 
@@ -219,7 +222,8 @@ public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, Activity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mInstance.destroy();
+        mPlayer.destroy();
+        mPlayer = null;
 //        if (mVideoViewPager != null && mPageChangeCallback != null) {
 //            mVideoViewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
 //        }

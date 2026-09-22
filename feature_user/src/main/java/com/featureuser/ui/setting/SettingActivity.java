@@ -14,6 +14,7 @@ import com.libase.base.BaseActivity;
 import com.libase.config.ArouterPath;
 import com.libase.dialog.YesOrNoDialog;
 import com.libase.eventBus.MessageEvent;
+import com.libase.utils.RunTimeCheck;
 import com.libase.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -125,6 +126,7 @@ public class SettingActivity extends BaseActivity<SettingViewmodel, ActivitySett
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        RunTimeCheck.INSTANCE.getMemoryInfo();
     }
 
     /**

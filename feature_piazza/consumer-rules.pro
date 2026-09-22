@@ -1,0 +1,2 @@
+-keep class com.featurepiazza.bean.** { *; }
+-keep class com.featurepiazza.ui.imagesShow.fragment.ItemViewPagerFragment

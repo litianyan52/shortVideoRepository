@@ -14,7 +14,7 @@ public class MediaPlayerManager {
     private ExoPlayer mPlayer;
 
     public MediaPlayerManager(Context context) {
-        this.mPlayer = new ExoPlayer.Builder(context.getApplicationContext()).build();
+        this.mPlayer = new ExoPlayer.Builder(context).build();
     }
 
     public static MediaPlayerManager getInstance(Context context) {
@@ -51,8 +51,13 @@ public class MediaPlayerManager {
         }
     }
 
+    /**
+     * 播放页面销毁后播放器也销毁,只有在不停的播放视频时保证播放器单例
+     */
     public void destroy() {
         if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.clearMediaItems();
             mPlayer.release();
             mPlayer = null;
             instance = null;

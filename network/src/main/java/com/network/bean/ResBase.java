@@ -1,6 +1,6 @@
 package com.network.bean;
 
-public class ResBase<T> {
+public class ResBase<T> implements IApiResponse{
 
     /**
      * code : 1

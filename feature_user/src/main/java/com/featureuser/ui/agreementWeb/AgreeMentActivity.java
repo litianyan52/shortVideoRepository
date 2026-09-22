@@ -16,6 +16,7 @@ import com.featureuser.userConfig.UserConfig;
 import com.libase.base.BaseActivity;
 import com.libase.base.BaseViewmodel;
 import com.libase.config.ArouterPath;
+import com.libase.utils.RunTimeCheck;
 import com.libase.utils.StatusBarUtils;
 
 @Route(path = ArouterPath.User.ACTIVITY_WB_AGREEMENT)
@@ -88,6 +89,8 @@ public class AgreeMentActivity extends BaseActivity<BaseViewmodel, ActivityWebvi
                 mViewModel.showLoading(false);  //加载完取消ProgressBar
             }
         });
+
+        RunTimeCheck.INSTANCE.getMemoryInfo();
     }
 
     @Override

@@ -45,7 +45,7 @@ public class BrowseRecordAdapter extends BaseAdapter<UserLookRecord, BrowseRecor
                 // mIsShowCheckBox = false;     //将所有CheckBox的状态恢复为未选中状态
             }
         }
-        notifyDataSetChanged();
+        notifyDataSetChanged();//通过刷新来让列表重新绑定显示CheckBox
     }
 
     @NonNull
@@ -64,7 +64,7 @@ public class BrowseRecordAdapter extends BaseAdapter<UserLookRecord, BrowseRecor
         holder.mBinding.itemBrowseRecordCheckbox.setVisibility(mIsShowCheckBox ? View.VISIBLE : View.GONE);
         if (selectedData == null || selectedData.isEmpty()) {
             holder.mBinding.itemBrowseRecordCheckbox.setChecked(false);  //如果没有选中的记录,说明所有checkBox都没被选中
-        } else {   //判断每一条记录的选中状态,在hashMap中有记录则说明被选中了
+        } else {   //判断每一条记录的选中状态,在hashMap中有记录则说明被选中了,这里主要解决ViewHolder复用时CheckBox状态残留问题
             if (selectedData.containsKey(userLookRecord)) {
                 holder.mBinding.itemBrowseRecordCheckbox.setChecked(true);
             } else {

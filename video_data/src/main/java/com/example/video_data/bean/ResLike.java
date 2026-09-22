@@ -1,6 +1,8 @@
 package com.example.video_data.bean;
 
-public class ResLike {
+import com.network.bean.IApiResponse;
+
+public class ResLike implements IApiResponse {
 
     /**
      * code : 1001
