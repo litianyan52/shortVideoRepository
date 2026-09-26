@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.featuremediaplay.ui.mediaplay.MediaPlayViewModel" />
+            type="com.featuremediaplay.ui.mediaplay.kotlinVersion.MediaPlayViewModelKotlinVersion" />
     </data>
 
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@{viewModel.likes}"
+            android:text="@{viewModel.mLikes}"
             android:textColor="#ffffffff"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/like"
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@{viewModel.collections}"
+            android:text="@{viewModel.mCollections}"
             android:textColor="#ffffffff"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/collect"
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@{viewModel.comments}"
+            android:text="@{viewModel.mComments}"
             android:textColor="#ffffffff"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/commend"

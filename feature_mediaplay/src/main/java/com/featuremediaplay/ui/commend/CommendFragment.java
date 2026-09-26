@@ -21,6 +21,7 @@ import com.featuremediaplay.databinding.LayoutCommendBinding;
 import com.featuremediaplay.dialog.DeleteCommentDialog;
 import com.featuremediaplay.ui.commend.adapter.CommentAdapter;
 import com.featuremediaplay.ui.mediaplay.MediaPlayViewModel;
+import com.featuremediaplay.ui.mediaplay.kotlinVersion.MediaPlayViewModelKotlinVersion;
 import com.libase.base.BaseFragment;
 import com.libase.config.ArouterPath;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -29,7 +30,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.List;
 
 @Route(path = ArouterPath.Video.VIDEO_LIST_FRAGMENT_COMMEND)
-public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutCommendBinding> {
+public class CommendFragment extends BaseFragment<MediaPlayViewModelKotlinVersion, LayoutCommendBinding> {
 
     private static final String TAG = "CommendFragment";
 
@@ -37,9 +38,9 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
     private ViewTreeObserver.OnGlobalLayoutListener mKeyboardLayoutListener;
 
     @Override
-    public MediaPlayViewModel getViewModel() {
+    public MediaPlayViewModelKotlinVersion getViewModel() {
         //设置共享ViewModel,使各个地方的数据能够及时同步
-        return new ViewModelProvider(requireActivity()).get(MediaPlayViewModel.class);
+        return new ViewModelProvider(requireActivity()).get(MediaPlayViewModelKotlinVersion.class);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
      */
     private void initObservers() {
         //获取到评论列表后设置到adapter中
-        mViewmodel.getCommentsList().observe(getViewLifecycleOwner(), new Observer<List<ResComment>>() {
+        mViewmodel.getMCommentList().observe(getViewLifecycleOwner(), new Observer<List<ResComment>>() {
             @Override
             public void onChanged(List<ResComment> resComments) {
                 //数据请求回来把加载或者刷新动画关闭
@@ -142,14 +143,14 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
             }
         });
 
-        mViewmodel.getIsEnableLoadMore().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        mViewmodel.isEnableLoadMore().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEnableLoadMore) {
                 mDataBinding.refreshLayout.setEnableLoadMore(isEnableLoadMore);  //设置是否允许下拉加载
             }
         });
 
-        mViewmodel.getIsLike().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mViewmodel.getMIsLike().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == 0) {
@@ -161,7 +162,7 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
             }
         });
 
-        mViewmodel.getIsCollection().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mViewmodel.getMIsCollection().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == 0) {
@@ -193,7 +194,7 @@ public class CommendFragment extends BaseFragment<MediaPlayViewModel, LayoutComm
                     mDataBinding.refreshLayout.finishRefresh();
                 }
                 mViewmodel.getCommentList(true);
-                mViewmodel.getIsEnableLoadMore().setValue(true);  //刷新后允许加载
+                mViewmodel.isEnableLoadMore().setValue(true);  //刷新后允许加载
             }
         });
     }

@@ -19,7 +19,7 @@ dependencies {
     implementation libs.media3.exoplayer
     implementation libs.media3.ui
     implementation libs.flowHelper  //刷新头
-    annotationProcessor libs.arouterCompiler
+    kapt libs.arouterCompiler
 
 
 

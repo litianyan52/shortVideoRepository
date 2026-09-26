@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Demo20ShVideoProject">
         <activity
-            android:name=".ui.mediaplay.MediaPlayActivity"
+            android:name=".ui.mediaplay.kotlinVersion.MediaPlayActivityKotlinVersion"
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>

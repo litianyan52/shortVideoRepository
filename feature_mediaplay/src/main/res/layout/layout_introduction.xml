@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.featuremediaplay.ui.mediaplay.MediaPlayViewModel" />
+            type="com.featuremediaplay.ui.mediaplay.kotlinVersion.MediaPlayViewModelKotlinVersion" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="24dp"
-                    android:text="@{viewModel.title}"
+                    android:text="@{viewModel.mTitle}"
                     android:textColor="#ffffffff"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.channel}"
+                    android:text="@{viewModel.mChannel}"
                     android:textColor="#ffffffff"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="@id/video_title"
@@ -62,7 +62,7 @@
                     android:layout_marginEnd="15dp"
                     android:ellipsize="end"
                     android:maxLines="4"
-                    android:text="@{viewModel.description}"
+                    android:text="@{viewModel.mDescription}"
                     android:textColor="#ffffffff"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.likes}"
+                    android:text="@{viewModel.mLikes}"
                     android:textColor="#ffffffff"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="@id/like"
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.collections}"
+                    android:text="@{viewModel.mCollections}"
                     android:textColor="#ffffffff"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="@id/collect"
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.comments}"
+                    android:text="@{viewModel.mComments}"
                     android:textColor="#ffffffff"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="@id/commend"
@@ -163,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.shares}"
+                    android:text="@{viewModel.mShares}"
                     android:textColor="#ffffffff"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="@id/share"

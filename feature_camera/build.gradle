@@ -31,7 +31,7 @@ dependencies {
     implementation libs.camera.core
     implementation libs.camera.lifecycle
     implementation libs.camera.view
-    annotationProcessor libs.arouterCompiler
+    kapt libs.arouterCompiler
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

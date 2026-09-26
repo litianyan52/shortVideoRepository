@@ -11,6 +11,11 @@
             android:name=".ui.mediaplay.MediaPlayActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.mediaplay.kotlinVersion.MediaPlayActivityKotlinVersion"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

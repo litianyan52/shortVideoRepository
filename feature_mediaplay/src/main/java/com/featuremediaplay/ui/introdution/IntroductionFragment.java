@@ -14,12 +14,13 @@ import com.example.video_data.bean.ArchivesInfo;
 import com.featuremediaplay.databinding.LayoutIntroductionBinding;
 import com.featuremediaplay.ui.commend.report.CommendPopWindow;
 import com.featuremediaplay.ui.mediaplay.MediaPlayViewModel;
+import com.featuremediaplay.ui.mediaplay.kotlinVersion.MediaPlayViewModelKotlinVersion;
 import com.featuremediaplay.ui.videoList.VideoListFragment;
 import com.libase.base.BaseFragment;
 import com.libase.config.ArouterPath;
 
 @Route(path = ArouterPath.Video.VIDEO_LIST_FRAGMENT_INTRODUCTION)
-public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, LayoutIntroductionBinding> {
+public class IntroductionFragment extends BaseFragment<MediaPlayViewModelKotlinVersion, LayoutIntroductionBinding> {
 
 
     private ArchivesInfo mArchivesInfo;
@@ -38,8 +39,8 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
 //    }
 
     @Override
-    public MediaPlayViewModel getViewModel() {
-        return new ViewModelProvider(requireActivity()).get(MediaPlayViewModel.class); //获取宿主Activity的viewModel
+    public MediaPlayViewModelKotlinVersion getViewModel() {
+        return new ViewModelProvider(requireActivity()).get(MediaPlayViewModelKotlinVersion.class); //获取宿主Activity的viewModel
     }
 
     @Override
@@ -94,7 +95,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
     @Override
     public void initData() {
         //更新点赞按钮图片状态
-        mViewmodel.getIsLike().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mViewmodel.getMIsLike().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == 0) {
@@ -107,7 +108,7 @@ public class IntroductionFragment extends BaseFragment<MediaPlayViewModel, Layou
         });
 
         //更新收藏按钮图片状态
-        mViewmodel.getIsCollection().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mViewmodel.getMIsCollection().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == 0) {

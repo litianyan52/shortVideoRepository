@@ -36,7 +36,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-@Route(path = ArouterPath.Video.ACTIVITY_MEDIA_PLAY)
 public class MediaPlayActivity extends BaseActivity<MediaPlayViewModel, ActivityMediaPlayBinding> {
 
     private static final String TAG = "MediaPlayActivity";

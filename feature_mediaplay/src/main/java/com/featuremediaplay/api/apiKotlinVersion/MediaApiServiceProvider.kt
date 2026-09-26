@@ -8,7 +8,7 @@ object MediaApiServiceProvider {
         retrofit.create(MediaApiService::class.java)
     }
 
-    fun provider(): MediaApiService = mMediaApiService
+    fun getInstance(): MediaApiService = mMediaApiService
 }
 
 

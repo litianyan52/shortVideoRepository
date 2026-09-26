@@ -21,7 +21,7 @@ dependencies {
 
 //    implementation libs.appcompat
 //    implementation libs.material
-    annotationProcessor libs.arouterCompiler
+    kapt libs.arouterCompiler
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
