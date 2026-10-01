@@ -45,34 +45,44 @@ public class HomeFragment extends BaseFragment<HomeViewModel, LayoutHomeFragment
     public void initView() {
         //这里访问不到VideoListFragment,但是创建的确实是VideoListFragment
         //由于是Media下的Fragment,所以用与此相关的配置
-        Fragment commendFragment = (Fragment) ARouter
-                .getInstance()
-                .build(ArouterPath.Video.FRAGMENT_VideoList)
-                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)
-                .navigation();
-
-        Fragment dailyFragment = (Fragment) ARouter
-                .getInstance()
-                .build(ArouterPath.Video.FRAGMENT_VideoList)
-                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_DAILY)
-                .navigation();
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(commendFragment);
-        fragments.add(dailyFragment);
+//        Fragment commendFragment = (Fragment) ARouter
+//                .getInstance()
+//                .build(ArouterPath.Video.FRAGMENT_VideoList)
+//                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)
+//                .navigation();
+//
+//        Fragment dailyFragment = (Fragment) ARouter
+//                .getInstance()
+//                .build(ArouterPath.Video.FRAGMENT_VideoList)
+//                .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_DAILY)
+//                .navigation();
+//        ArrayList<Fragment> fragments = new ArrayList<>();
+//        fragments.add(commendFragment);
+//        fragments.add(dailyFragment);
         mViewPager2 = mDataBinding.viewPager2;
-        mViewPager2.setSaveEnabled(false);
+       // mViewPager2.setSaveEnabled(false);
         mViewPager2.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
-                Log.d(TAG, "HomeFragment: " + fragments.get(position));
-                return fragments.get(position);
+                if (position == 0) return  (Fragment) ARouter
+                        .getInstance()
+                        .build(ArouterPath.Video.FRAGMENT_VideoList)
+                        .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_RECOMMEND)
+                        .navigation();
+
+                else return (Fragment) ARouter
+                        .getInstance()
+                        .build(ArouterPath.Video.FRAGMENT_VideoList)
+                        .withInt(ArouterPath.Video.VIDEO_LIST_FRAGMENT_TYPE_KEY, ArouterPath.Video.VIDEO_LIST_FRAGMENT_DAILY)
+                        .navigation();
+               // return fragments.get(position);
             }
 
             @Override
             public int getItemCount() {
 
-                return fragments.size();
+                return 2;
             }
         });
         mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
